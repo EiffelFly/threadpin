@@ -11,7 +11,7 @@
     "release": "turbo build --filter=docs^... && changeset publish"
   },
   "devDependencies": {
-    "@threadpin/eslint-config": "workspace:*",
+    "@threadspin/eslint-config": "workspace:*",
     "@changesets/cli": "^2.26.2",
     "eslint": "^8.54.0",
     "prettier": "^3.1.1",

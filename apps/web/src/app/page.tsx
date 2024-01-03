@@ -1,4 +1,4 @@
-import { Button } from "@threadpin/core";
+import { Button } from "@threadspin/core";
 
 export default function Page() {
   return (

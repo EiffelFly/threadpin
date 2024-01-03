@@ -1,5 +1,5 @@
 {
-  "name": "@threadpin/web",
+  "name": "@threadspin/web",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,18 +10,18 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
-    "@threadpin/core": "workspace:*",
-    "@threadpin/utils": "workspace:*",
+    "@threadspin/core": "workspace:*",
+    "@threadspin/utils": "workspace:*",
     "next": "^14.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@threadpin/tsconfig": "workspace:*",
+    "@threadspin/tsconfig": "workspace:*",
     "@types/node": "^20.9.4",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
-    "@threadpin/eslint-config": "workspace:*",
+    "@threadspin/eslint-config": "workspace:*",
     "typescript": "^5.3.2"
   }
 }

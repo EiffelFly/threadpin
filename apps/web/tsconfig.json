@@ -1,6 +1,6 @@
 {
   "exclude": ["node_modules"],
-  "extends": "@threadpin/tsconfig/nextjs.json",
+  "extends": "@threadspin/tsconfig/nextjs.json",
   "compilerOptions": {
     "outDir": "dist",
     "incremental": true,
