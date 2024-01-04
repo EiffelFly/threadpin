@@ -1,4 +1,6 @@
-import "./global.css";
+import { ClerkProvider } from "@clerk/nextjs";
+
+import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -6,8 +8,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <div className="flex h-[calc(100vh-var(--topbar-height))] w-full flex-1 overflow-x-hidden overflow-y-scroll">
+            {children}
+          </div>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
