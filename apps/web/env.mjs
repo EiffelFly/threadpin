@@ -3,17 +3,16 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    // This is optional because it's only used in development.
-    // See https://next-auth.js.org/deployment.
-    NEXTAUTH_URL: z.string().url().optional(),
-    NEXTAUTH_SECRET: z.string().min(1),
+    CLERK_SECRET_KEY: z.string().min(1),
   },
   client: {
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1).optional(),
     NEXT_PUBLIC_APP_URL: z.string().min(1),
   },
   runtimeEnv: {
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
   },
 });
