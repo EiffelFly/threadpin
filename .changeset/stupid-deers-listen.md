@@ -1,5 +1,5 @@
 ---
-"@threadspin/web": major
+"@pinyard/web": major
 ---
 
 feat: init the project

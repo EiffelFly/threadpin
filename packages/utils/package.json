@@ -1,5 +1,5 @@
 {
-  "name": "@threadspin/utils",
+  "name": "@pinyard/utils",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -16,11 +16,11 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "@threadspin/tsconfig": "workspace:*",
+    "@pinyard/tsconfig": "workspace:*",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.54.0",
-    "@threadspin/eslint-config": "workspace:*",
+    "@pinyard/eslint-config": "workspace:*",
     "react": "^18.2.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.2"

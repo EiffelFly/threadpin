@@ -1,5 +1,5 @@
 ---
-"@threadspin/web": minor
+"@pinyard/web": minor
 ---
 
 Add TailwindCSS into web

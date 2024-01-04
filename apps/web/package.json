@@ -1,5 +1,5 @@
 {
-  "name": "@threadspin/web",
+  "name": "@pinyard/web",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -16,7 +16,7 @@
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.7.1",
-    "@threadspin/utils": "workspace:*",
+    "@pinyard/utils": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "next": "^14.0.3",
@@ -28,8 +28,8 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@threadspin/eslint-config": "workspace:*",
-    "@threadspin/tsconfig": "workspace:*",
+    "@pinyard/eslint-config": "workspace:*",
+    "@pinyard/tsconfig": "workspace:*",
     "@types/node": "^20.9.4",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",

@@ -1,5 +1,5 @@
 {
-  "extends": "@threadspin/tsconfig/react-library.json",
+  "extends": "@pinyard/tsconfig/react-library.json",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }
