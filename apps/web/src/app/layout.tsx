@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
 
@@ -11,9 +12,16 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          <div className="flex h-[calc(100vh-var(--topbar-height))] w-full flex-1 overflow-x-hidden overflow-y-scroll">
-            {children}
-          </div>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="bg-background min-w-screen flex min-h-screen overflow-x-hidden overflow-y-scroll p-[var(--root-padding)]">
+              {children}
+            </div>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

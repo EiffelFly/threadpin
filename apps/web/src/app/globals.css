@@ -111,3 +111,34 @@
 :root {
   --root-padding: 40px;
 }
+
+
+@property --gradient-angle {
+  syntax: '<angle>'; /* <- defined as type angle for the transition to work */
+  initial-value: 360deg;
+  inherits: false;
+}
+
+/* Find a gradient color that have high contrast */
+
+.rotate-gradient {
+  background: linear-gradient(
+    var(--gradient-angle),
+    rgb(48, 26, 75),
+    rgb(109, 177, 191),
+    rgb(255, 234, 236),
+    rgb(243, 154, 157),
+    rgb(63, 108, 81)
+  );
+  animation: gradient-rotate-animation 4s linear infinite;
+}
+
+@keyframes gradient-rotate-animation {
+  0% {
+    --gradient-angle: 360deg;
+  }
+
+  100% {
+    --gradient-angle: 0deg;
+  }
+}
