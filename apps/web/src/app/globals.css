@@ -121,16 +121,57 @@
 
 /* Find a gradient color that have high contrast */
 
+@property --gradient-color-1 {
+  syntax: '<color>';
+  initial-value: rgb(9,9,10);
+  inherits: false;
+}
+
+@property --gradient-color-2 {
+  syntax: '<color>';
+  initial-value: rgb(9,9,10);
+  inherits: false;
+}
+
+@property --gradient-color-3 {
+  syntax: '<color>';
+  initial-value: rgb(9,9,10);
+  inherits: false;
+}
+
+@property --gradient-color-4 {
+  syntax: '<color>';
+  initial-value: rgb(9,9,10);
+  inherits: false;
+}
+
+@property --gradient-color-5 {
+  syntax: '<color>';
+  initial-value: rgb(9,9,10);
+  inherits: false;
+}
+
 .rotate-gradient {
   background: linear-gradient(
     var(--gradient-angle),
-    rgb(48, 26, 75),
-    rgb(109, 177, 191),
-    rgb(255, 234, 236),
-    rgb(243, 154, 157),
-    rgb(63, 108, 81)
+    var(--gradient-color-1),
+    var(--gradient-color-2),
+    var(--gradient-color-3),
+    var(--gradient-color-4),
+    var(--gradient-color-5)
   );
   animation: gradient-rotate-animation 4s linear infinite;
+  animation-play-state: paused;
+  transition: --gradient-color-1 2s, --gradient-color-2 2s, --gradient-color-3 2s, --gradient-color-4 2s, --gradient-color-5 2s;
+}
+
+.rotate-gradient.hover {
+  animation-play-state: running;
+  --gradient-color-1: rgb(48, 26, 75);
+  --gradient-color-2: rgb(109, 177, 191);
+  --gradient-color-3: rgb(255, 234, 236);
+  --gradient-color-4: rgb(243, 154, 157);
+  --gradient-color-5: rgb(63, 108, 81);
 }
 
 @keyframes gradient-rotate-animation {

@@ -18,7 +18,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="bg-background min-w-screen flex min-h-screen overflow-x-hidden overflow-y-scroll p-[var(--root-padding)]">
+            <div className="bg-background min-w-screen flex min-h-screen overflow-x-hidden overflow-y-scroll">
               {children}
             </div>
           </ThemeProvider>
