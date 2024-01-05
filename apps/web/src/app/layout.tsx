@@ -1,7 +1,9 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
+import { ProcessingURLDrawer } from "@/components/processing-url-drawer";
 
 export default function RootLayout({
   children,
@@ -22,6 +24,7 @@ export default function RootLayout({
               {children}
             </div>
           </ThemeProvider>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

@@ -17,7 +17,7 @@ export default function Page() {
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={75}>
-          <div className="bg-background flex h-full flex-col"></div>
+          <div className="bg-background flex h-full flex-col p-4"></div>
         </ResizablePanel>
       </ResizablePanelGroup>
     </Container>
