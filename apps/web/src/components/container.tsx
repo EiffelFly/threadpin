@@ -3,14 +3,13 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { ProcessingURLDrawer } from "./processing-url-drawer";
-import { Nullable } from "@/types";
+import { usePinStore } from "@/store/usePinStore";
 
 export const Container = ({ children }: { children: React.ReactNode }) => {
   const [isOnEdge, setIsOnEdge] = React.useState(false);
-  const [openProcessingURLDrawer, setOpenProcessingURLDrawer] =
-    React.useState(false);
-  const [url, setUrl] = React.useState<Nullable<URL>>(null);
+  const updateProcessingURLDrawerState = usePinStore(
+    (store) => store.updateProcessingURLDrawerState
+  );
 
   return (
     <div
@@ -27,14 +26,14 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
         if (pastedString) {
           try {
             const url = new URL(pastedString);
-            setOpenProcessingURLDrawer(true);
-            console.log("url", url);
-            setUrl(url);
+            updateProcessingURLDrawerState(() => ({
+              open: true,
+              url: url,
+            }));
           } catch (err) {
             toast.error("Invalid URL", {
               duration: 1000,
             });
-            setUrl(null);
           }
         }
       }}

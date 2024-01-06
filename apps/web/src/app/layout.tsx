@@ -24,6 +24,7 @@ export default function RootLayout({
               {children}
             </div>
           </ThemeProvider>
+          <ProcessingURLDrawer />
           <Toaster />
         </body>
       </html>
