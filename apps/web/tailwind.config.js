@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -73,5 +73,44 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [
+    require("tailwindcss-animate"),
+    ({ addUtilities }) => {
+      addUtilities({
+        ".typography-h1": {
+          "@apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl":
+            {},
+        },
+        ".typography-h2": {
+          "@apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0":
+            {},
+        },
+        ".typography-h3": {
+          "@apply scroll-m-20 text-2xl font-semibold tracking-tight": {},
+        },
+        ".typography-h4": {
+          "@apply scroll-m-20 text-xl font-semibold tracking-tight": {},
+        },
+        ".typography-p": {
+          "@apply leading-7 [&:not(:first-child)]:mt-6": {},
+        },
+        ".typography-inline-code": {
+          "@apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold":
+            {},
+        },
+        ".typography-lead": {
+          " @apply text-xl text-muted-foreground": {},
+        },
+        ".typography-large": {
+          "@apply text-lg font-semibold": {},
+        },
+        ".typography-small": {
+          "@apply text-sm font-medium leading-none": {},
+        },
+        ".typography-muted": {
+          "@apply text-sm text-muted-foreground": {},
+        },
+      });
+    },
+  ],
+};
