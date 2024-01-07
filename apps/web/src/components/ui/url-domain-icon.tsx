@@ -1,4 +1,10 @@
-export function getURLDomainIcon(url: URL, className?: string) {
+export const URLDomainIcon = ({
+  url,
+  className,
+}: {
+  url: URL;
+  className?: string;
+}) => {
   const domain = url.hostname;
 
   console.log(domain);
@@ -18,4 +24,8 @@ export function getURLDomainIcon(url: URL, className?: string) {
       );
     }
   }
-}
+};
+
+export const IconRoot = () => {
+  <div className=""></div>;
+};
