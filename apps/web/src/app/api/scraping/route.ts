@@ -11,6 +11,8 @@ export const GetURLDataResponseSchema = z.object({
   keywords: z.string().nullable(),
 });
 
+export type GetURLDataResponse = z.infer<typeof GetURLDataResponseSchema>;
+
 export async function GET(request: NextRequest) {
   try {
     const url = request.nextUrl.searchParams.get("url");
@@ -23,10 +25,7 @@ export async function GET(request: NextRequest) {
 
     const html = await res.text();
 
-    console.log(html);
-
     const $ = cheerio.load(html);
-    const head = $("head");
 
     const title =
       $('meta[property="og:title"]').attr("content") ||
@@ -36,8 +35,6 @@ export async function GET(request: NextRequest) {
     const description =
       $('meta[property="og:description"]').attr("content") ||
       $('meta[name="description"]').attr("content");
-
-    console.log(description);
 
     const site_name =
       $('meta[property="og:site_name"]').attr("content") ||
