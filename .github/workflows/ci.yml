@@ -28,8 +28,4 @@ jobs:
         working-directory: ./apps/web
         run: |
           supabase gen types typescript --local > ./src/types/database.types.ts
-          if git diff --ignore-space-at-eol --quiet ./src/types/database.types.ts; then
-            echo "Detected uncommitted changes after build. See status below:"
-            git diff
-            exit 1
-          fi
+          git diff --ignore-space-at-eol --quiet ./src/types/database.types.ts
