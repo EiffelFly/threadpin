@@ -16,7 +16,7 @@ export interface Database {
           id: string;
           name: string | null;
           og_image: string | null;
-          url: string | null;
+          url: string;
         };
         Insert: {
           created_at?: string;
