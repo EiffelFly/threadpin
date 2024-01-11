@@ -28,4 +28,4 @@ jobs:
         working-directory: ./apps/web
         run: |
           supabase gen types typescript --local > ./src/types/database.types.ts
-          git diff --ignore-space-at-eol --quiet ./src/types/database.types.ts
+          git diff --ignore-space-at-eol ./src/types/database.types.ts
