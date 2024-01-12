@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { Nullable } from "@/types";
 import Image from "next/image";

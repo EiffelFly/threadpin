@@ -1,3 +1,5 @@
+"use client";
+
 export const URLDomainIcon = ({
   url,
   className,
@@ -6,8 +8,6 @@ export const URLDomainIcon = ({
   className?: string;
 }) => {
   const domain = url.hostname;
-
-  console.log(domain);
 
   switch (domain) {
     case "www.threads.net": {
