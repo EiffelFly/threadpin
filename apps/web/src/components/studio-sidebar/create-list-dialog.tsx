@@ -45,37 +45,6 @@ export function CreateListDiaglog() {
   });
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true);
-    const supabase = createClientComponentClient();
-    const { error } = await supabase.from("lists").insert({
-      id: values.id,
-      description: values.description,
-      visibility: "VISIBILITY_PRIVATE",
-    });
-
-    if (error) {
-      console.error(error);
-      setIsSubmitting(false);
-      toast.error(
-        "Something when wrong when creating your list, please try again later",
-        {
-          duration: 3000,
-        }
-      );
-      return;
-    }
-
-    setIsSubmitting(false);
-    setOpen(false);
-    toast.success(
-      "Successfully created your list, you can now add your first item!",
-      {
-        duration: 2500,
-      }
-    );
-  }
-
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger asChild>
@@ -137,4 +106,35 @@ export function CreateListDiaglog() {
       </DialogContent>
     </Dialog>
   );
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    const supabase = createClientComponentClient();
+    const { error } = await supabase.from("lists").insert({
+      id: values.id,
+      description: values.description,
+      visibility: "VISIBILITY_PRIVATE",
+    });
+
+    if (error) {
+      console.error(error);
+      setIsSubmitting(false);
+      toast.error(
+        "Something when wrong when creating your list, please try again later",
+        {
+          duration: 3000,
+        }
+      );
+      return;
+    }
+
+    setIsSubmitting(false);
+    setOpen(false);
+    toast.success(
+      "Successfully created your list, you can now add your first item!",
+      {
+        duration: 2500,
+      }
+    );
+  }
 }
