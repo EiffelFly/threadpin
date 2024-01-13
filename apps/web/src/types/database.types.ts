@@ -34,51 +34,105 @@ export interface Database {
   }
   public: {
     Tables: {
-      item: {
+      items: {
+        Row: {
+          created_at: string
+          description: string | null
+          name: string
+          og_image: string | null
+          uid: string
+          updated_at: string | null
+          url: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          name: string
+          og_image?: string | null
+          uid?: string
+          updated_at?: string | null
+          url: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          name?: string
+          og_image?: string | null
+          uid?: string
+          updated_at?: string | null
+          url?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      list_items: {
+        Row: {
+          created_at: string
+          item_uid: string
+          list_uid: string
+          uid: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          item_uid: string
+          list_uid: string
+          uid?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          item_uid?: string
+          list_uid?: string
+          uid?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "list_items_item_uid_fkey"
+            columns: ["item_uid"]
+            isOneToOne: false
+            referencedRelation: "items"
+            referencedColumns: ["uid"]
+          },
+          {
+            foreignKeyName: "list_items_list_uid_fkey"
+            columns: ["list_uid"]
+            isOneToOne: false
+            referencedRelation: "lists"
+            referencedColumns: ["uid"]
+          }
+        ]
+      }
+      lists: {
         Row: {
           created_at: string
           description: string | null
           id: string
-          name: string | null
-          og_image: string | null
-          url: string | null
+          uid: string
+          updated_at: string | null
+          user_id: string | null
+          visibility: Database["public"]["Enums"]["Visibility"] | null
         }
         Insert: {
           created_at?: string
           description?: string | null
-          id?: string
-          name?: string | null
-          og_image?: string | null
-          url?: string | null
-        }
-        Update: {
-          created_at?: string
-          description?: string | null
-          id?: string
-          name?: string | null
-          og_image?: string | null
-          url?: string | null
-        }
-        Relationships: []
-      }
-      list: {
-        Row: {
-          created_at: string
           id: string
-          items: string[] | null
-          name: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          items?: string[] | null
-          name?: string | null
+          uid?: string
+          updated_at?: string | null
+          user_id?: string | null
+          visibility?: Database["public"]["Enums"]["Visibility"] | null
         }
         Update: {
           created_at?: string
+          description?: string | null
           id?: string
-          items?: string[] | null
-          name?: string | null
+          uid?: string
+          updated_at?: string | null
+          user_id?: string | null
+          visibility?: Database["public"]["Enums"]["Visibility"] | null
         }
         Relationships: []
       }
@@ -89,6 +143,9 @@ export interface Database {
           first_name: string | null
           id: string
           last_name: string | null
+          uid: string
+          updated_at: string | null
+          user_id: string | null
         }
         Insert: {
           avatar_url?: string | null
@@ -96,6 +153,9 @@ export interface Database {
           first_name?: string | null
           id: string
           last_name?: string | null
+          uid?: string
+          updated_at?: string | null
+          user_id?: string | null
         }
         Update: {
           avatar_url?: string | null
@@ -103,16 +163,11 @@ export interface Database {
           first_name?: string | null
           id?: string
           last_name?: string | null
+          uid?: string
+          updated_at?: string | null
+          user_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
     }
     Views: {
@@ -122,7 +177,10 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      Visibility:
+        | "VISIBILITY_PUBLIC"
+        | "VISIBILITY_PRIVATE"
+        | "VISIBILITY_UNSPECIFIED"
     }
     CompositeTypes: {
       [_ in never]: never
