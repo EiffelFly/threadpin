@@ -86,6 +86,16 @@ const FormItem = React.forwardRef<
 });
 FormItem.displayName = "FormItem";
 
+export const FormItemSkeleton = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return <div className={cn("space-y-2", className)}>{children}</div>;
+};
+
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>

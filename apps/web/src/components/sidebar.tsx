@@ -6,6 +6,7 @@ export const Sidebar = () => {
       <div className="border-border w-full rounded-xl border px-4 py-3">
         <span className="">EiffelFly</span>
       </div>
+      <div className="flex flex-1 flex-col"></div>
     </div>
   );
 };
