@@ -92,7 +92,7 @@ module.exports = {
           "@apply scroll-m-20 text-xl font-semibold tracking-tight": {},
         },
         ".typography-p": {
-          "@apply leading-7 [&:not(:first-child)]:mt-6": {},
+          "@apply leading-7": {},
         },
         ".typography-inline-code": {
           "@apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold":
