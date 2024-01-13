@@ -1,3 +1,7 @@
+import * as React from "react";
+import { TypedSupabaseClient } from "@/types";
+import { Database } from "@/types/database.types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -15,4 +19,20 @@ export function getURL() {
   // Make sure to including trailing `/`.
   url = url.charAt(url.length - 1) === "/" ? url : `${url}/`;
   return url;
+}
+
+let supabaseBrowerClient: TypedSupabaseClient | undefined;
+
+function getSupabaseBrowserClient() {
+  if (supabaseBrowerClient) {
+    return supabaseBrowerClient;
+  }
+
+  supabaseBrowerClient = createClientComponentClient<Database>();
+
+  return supabaseBrowerClient;
+}
+
+export function useSupabaseBrowser() {
+  return React.useMemo(getSupabaseBrowserClient, []);
 }
