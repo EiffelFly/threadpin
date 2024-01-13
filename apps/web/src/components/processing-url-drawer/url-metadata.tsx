@@ -36,7 +36,7 @@ export const URLMetadata = ({
         {data.description ? (
           <p className="typography-p mb-0.5">{data.description}</p>
         ) : null}
-        <p className="typography-muted">{url.href}</p>
+        <p className="typography-muted break-words">{url.href}</p>
       </div>
     </div>
   );
