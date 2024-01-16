@@ -1,6 +1,6 @@
 "use client";
 
-import { getUserQuery } from "@/supabase-query/queries/getUserQuery";
+import { getUserQuery } from "@/supabase-query/queries/get-user-query";
 import { TypedSupabaseClient } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
