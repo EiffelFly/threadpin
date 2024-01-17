@@ -2,20 +2,26 @@
 
 import * as React from "react";
 import cn from "clsx";
-import { Command } from "../Command";
-import { Popover } from "../Popover";
-import { Icons } from "../Icons";
 import { Nullable, SelectOption } from "../../types/general";
-import { Button } from "../Button";
-import { Tag } from "../Tag";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { Button } from "./button";
+import { Badge } from "./badge";
+import { CheckIcon, Cross1Icon } from "@radix-ui/react-icons";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "./command";
 
 type ComboboxProps = {
   placeholder: React.ReactElement;
   options: SelectOption[];
 
   setOptions?: React.Dispatch<React.SetStateAction<SelectOption[]>>;
-  selectedOptions: string[];
-  onChange: (selectedOptions: string[]) => void;
+  selectedOptions: SelectOption[];
+  onChange: (selectedOptions: SelectOption[]) => void;
   createOnNotFound?: boolean;
   emptyPlaceholder?: string;
   searchInputPlaceholder?: string;
@@ -34,30 +40,29 @@ export function MultiSelect({
   const [open, setOpen] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState<Nullable<string>>(null);
 
-  const handleUnselect = (item: string) => {
-    onChange(selectedOptions.filter((i) => i !== item));
+  const handleUnselect = (item: SelectOption) => {
+    onChange(selectedOptions.filter((i) => i.value !== item.value));
   };
 
   return (
-    <Popover.Root open={open} onOpenChange={setOpen}>
-      <Popover.Trigger asChild>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
         <Button
-          variant="secondaryGrey"
+          variant="outline"
           className={cn(
             "w-full justify-between",
-            selectedOptions.length > 0 ? "h-full" : "h-10"
+            selectedOptions.length > 0 ? "h-full min-h-10" : "h-10"
           )}
         >
           {selectedOptions.length > 0 ? (
             <div className="flex flex-row flex-wrap gap-1">
               {selectedOptions.map((option) => (
-                <Tag
-                  key={option}
-                  variant="lightBlue"
-                  size="sm"
+                <Badge
+                  key={option.value}
+                  variant="default"
                   className="flex flex-row gap-x-1"
                 >
-                  {option}
+                  {option.label}
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -65,39 +70,50 @@ export function MultiSelect({
                       handleUnselect(option);
                     }}
                   >
-                    <Icons.X className="stroke-semantic-fg-secondary h-3 w-3" />
+                    <Cross1Icon className="stroke-semantic-fg-secondary h-3 w-3" />
                   </button>
-                </Tag>
+                </Badge>
               ))}
             </div>
           ) : (
             placeholder
           )}
         </Button>
-      </Popover.Trigger>
-      <Popover.Content className="w-[var(--radix-popover-trigger-width)] !rounded-sm !p-0">
-        <Command.Root>
-          <Command.Input
+      </PopoverTrigger>
+      <PopoverContent className="w-[var(--radix-popover-trigger-width)] !rounded-sm !p-0">
+        <Command>
+          <CommandInput
             value={searchValue ?? ""}
             onValueChange={(search) => {
               setSearchValue(search);
             }}
             placeholder={searchInputPlaceholder ?? "Search..."}
           />
-          <Command.Empty className="!p-2">
+          <CommandEmpty className="!p-2">
             {createOnNotFound ? (
               <Button
-                variant="secondaryColour"
+                variant="secondary"
                 size="sm"
                 className="!text-semantic-fg-secondary !product-body-text-3-medium !w-full"
                 onClick={() => {
                   if (!setOptions) {
                     throw new Error("setOptions is not defined");
                   }
-                  if (!searchValue || selectedOptions.includes(searchValue)) {
+
+                  const searchedOption = options.find((option) => {
+                    option.label === searchValue;
+                  });
+
+                  if (!searchValue || searchedOption) {
                     return;
                   }
-                  onChange([...selectedOptions, searchValue]);
+                  onChange([
+                    ...selectedOptions,
+                    {
+                      value: searchValue,
+                      label: searchValue,
+                    },
+                  ]);
                   setOptions([
                     ...options,
                     { value: searchValue, label: searchValue },
@@ -108,35 +124,42 @@ export function MultiSelect({
             ) : (
               emptyPlaceholder
             )}
-          </Command.Empty>
-          <Command.Group>
+          </CommandEmpty>
+          <CommandGroup>
             {options.map((option) => (
-              <Command.Item
+              <CommandItem
                 key={option.value}
                 onSelect={() => {
-                  onChange(
-                    selectedOptions.includes(option.value)
-                      ? selectedOptions.filter((item) => item !== option.value)
-                      : [...selectedOptions, option.value]
+                  const isSelected = !!selectedOptions.find(
+                    (e) => e.value === option.value
                   );
+
+                  if (isSelected) {
+                    onChange(
+                      selectedOptions.filter((e) => e.value !== option.value)
+                    );
+                  } else {
+                    onChange([...selectedOptions, option]);
+                  }
+
                   setOpen(true);
                 }}
               >
-                <Icons.Check
+                <CheckIcon
                   className={cn(
                     "stroke-semantic-fg-secondary h-4 w-4",
-                    selectedOptions.includes(option.value)
+                    selectedOptions.some((e) => e.value === option.value)
                       ? "opacity-100"
                       : "opacity-0"
                   )}
                 />
                 {option.startIcon}
                 {option.label}
-              </Command.Item>
+              </CommandItem>
             ))}
-          </Command.Group>
-        </Command.Root>
-      </Popover.Content>
-    </Popover.Root>
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
