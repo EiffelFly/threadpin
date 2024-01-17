@@ -1,7 +1,7 @@
 "use client";
 
 import { useSupabaseBrowser } from "@/lib/utils";
-import { listUserListItemQuery } from "@/supabase-query";
+import { listUserListItemsQuery } from "@/supabase-query";
 import { ClientUserListItem, Nullable } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
@@ -27,7 +27,7 @@ export function useUserListItems({
         throw new Error("listID is not provided");
       }
 
-      const { data, error } = await listUserListItemQuery(
+      const { data, error } = await listUserListItemsQuery(
         client,
         userID,
         listID

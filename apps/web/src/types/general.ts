@@ -5,7 +5,7 @@ export type Nullable<T> = T | null;
 
 export type GeneralRecord = Record<string, any>;
 
-export type ItemsDisplayMode = "list" | "rich-list";
+export type ItemsDisplayMode = "rich" | "simple";
 
 export type TypedSupabaseClient = SupabaseClient<Database>;
 

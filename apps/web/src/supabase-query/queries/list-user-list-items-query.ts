@@ -1,6 +1,6 @@
 import { TypedSupabaseClient } from "@/types";
 
-export async function listUserListItemQuery(
+export async function listUserListItemsQuery(
   client: TypedSupabaseClient,
   userID: string,
   listID: string
@@ -15,5 +15,5 @@ export async function listUserListItemQuery(
   `
     )
     .eq("user_id", userID)
-    .eq("list_id", listID);
+    .eq("list_uid", listID);
 }

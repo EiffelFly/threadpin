@@ -1,4 +1,5 @@
-import { ItemsDisplayMode } from "@/types";
+import { ItemsDisplayMode, Nullable } from "@/types";
+import Image from "next/image";
 
 export function Item({
   url,
@@ -9,11 +10,11 @@ export function Item({
 }: {
   url: string;
   title: string;
-  ogImage?: string;
-  description?: string;
+  ogImage: Nullable<string>;
+  description: Nullable<string>;
   mode: ItemsDisplayMode;
 }) {
-  return mode === "list" ? (
+  return mode === "simple" ? (
     <ListItem url={url} title={title} />
   ) : (
     <RichListItem
@@ -42,15 +43,25 @@ function RichListItem({
 }: {
   url: string;
   title: string;
-  ogImage?: string;
-  description?: string;
+  ogImage: Nullable<string>;
+  description: Nullable<string>;
 }) {
   return (
-    <div className="flex flex-row gap-x-4">
-      <div className="flex flex-col gap-y-1">
+    <div className="border-border flex flex-row gap-x-4 rounded border p-4">
+      {ogImage ? (
+        <div className="relative h-full min-w-[200px]">
+          <Image className="object-contain" fill src={ogImage} alt={title} />
+        </div>
+      ) : null}
+      <div className="flex flex-col gap-y-2">
         <p className="typography-large text-foreground">{title}</p>
         <p className="typography-muted text-muted-foreground">{description}</p>
-        <p className="typography-muted text-muted-foreground">{url}</p>
+        <a
+          href={url}
+          className="typography-muted !text-muted-foreground/60 hover:!text-muted-foreground break-all hover:cursor-pointer hover:underline"
+        >
+          {url}
+        </a>
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-import { List } from "@/components/studio-sidebar/list";
-import { listUserListsQuery } from "@/supabase-query";
 import { Database } from "@/types/database.types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -16,13 +14,19 @@ export default async function Page() {
     redirect("/login");
   }
 
-  const lists = await listUserListsQuery(supabase, user.id);
+  const profile = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
 
   return (
-    <div className="flex w-full flex-col gap-y-4 px-4 py-3">
-      {lists.data?.map((list) => {
-        return <List id={list.id} uid={list.uid} />;
-      })}
+    <div className="border-border w-full border-b px-4 py-3">
+      <span className="">
+        {profile.data?.first_name && profile.data.last_name
+          ? `${profile.data?.first_name} ${profile.data?.last_name}`
+          : user.email?.split("@")[0]}
+      </span>
     </div>
   );
 }

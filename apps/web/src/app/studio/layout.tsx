@@ -25,11 +25,7 @@ export default function Layout(props: {
           </div>
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel defaultSize={60}>
-          <div className="bg-background flex h-full flex-col p-4">
-            {props.children}
-          </div>
-        </ResizablePanel>
+        <ResizablePanel defaultSize={60}>{props.children}</ResizablePanel>
       </ResizablePanelGroup>
     </Container>
   );
