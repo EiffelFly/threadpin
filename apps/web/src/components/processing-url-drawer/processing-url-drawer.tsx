@@ -9,15 +9,19 @@ import { useShallow } from "zustand/react/shallow";
 import axios from "axios";
 import { Nullable } from "@/types";
 import { GetURLDataResponse } from "@/app/api/scraping/route";
-import { cn, useSupabaseBrowser } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { URLMetadata } from "./url-metadata";
 import { URLDomainIcon } from "../ui/url-domain-icon";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { CreateItemFields, CreateItemFormSchema } from "./create-item-fields";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUserLists, useUserMe } from "@/react-query";
+import { useCreateItem, useUserMe } from "@/react-query";
 import { Button } from "../ui/button";
+import { CreateItemPayload, CreateListItemPayload } from "@/supabase-query";
+import { toast } from "sonner";
+import { useCreateListItem } from "@/react-query/mutations/use-create-list-item";
+import { LoadingSpin } from "../ui/loading-spin";
 
 const selector = (store: Store) => ({
   processingURLDrawerState: store.processingURLDrawerState,
@@ -55,19 +59,49 @@ export const ProcessingURLDrawer = () => {
     resolver: zodResolver(CreateItemFormSchema),
   });
 
-  const supabase = useSupabaseBrowser();
-
-  const me = useUserMe({ client: supabase, enabled: true });
-
-  const lists = useUserLists({
-    client: supabase,
-    enabled: me.isSuccess,
-    userID: me.isSuccess ? me.data.data.user?.id ?? null : null,
-  });
-
+  const me = useUserMe({ enabled: true });
+  const createItem = useCreateItem();
+  const createListItem = useCreateListItem();
   async function onCreateItemSubmit(
-    data: z.infer<typeof CreateItemFormSchema>
-  ) {}
+    formData: z.infer<typeof CreateItemFormSchema>
+  ) {
+    if (!url || !urlData || !me.isSuccess || !me.data.data.user) return;
+
+    const payload: CreateItemPayload = {
+      name: formData.title,
+      url: url.href,
+      og_image: urlData.ogImage ?? undefined,
+      description: formData.description ?? undefined,
+    };
+
+    try {
+      const { data } = await createItem.mutateAsync({
+        payload,
+        userID: me.data.data.user.id,
+      });
+
+      if (formData.lists.length > 0) {
+        for (const list of formData.lists) {
+          const createListItemPayload: CreateListItemPayload = {
+            list_uid: list,
+            item_uid: data.uid,
+          };
+
+          await createListItem.mutateAsync({
+            payload: createListItemPayload,
+            userID: me.data.data.user.id,
+          });
+        }
+      }
+    } catch (error) {
+      toast.error(
+        "Something when wrong when creating your item, please try again later",
+        {
+          duration: 3000,
+        }
+      );
+    }
+  }
 
   React.useEffect(() => {
     async function getURLData() {
@@ -145,8 +179,15 @@ export const ProcessingURLDrawer = () => {
                         <CreateItemFields form={createItemForm} />
                       </div>
                       <div className="flex flex-row-reverse">
-                        <Button type="submit" variant="default">
+                        <Button
+                          className="flex flex-row gap-x-2"
+                          type="submit"
+                          variant="default"
+                        >
                           Save
+                          {createItem.isPending || createListItem.isPending ? (
+                            <LoadingSpin />
+                          ) : null}
                         </Button>
                       </div>
                     </form>
