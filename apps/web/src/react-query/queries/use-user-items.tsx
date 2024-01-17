@@ -1,18 +1,18 @@
 "use client";
 
-import { listUserItemsQuery } from "@/supabase-query/queries/listUserItemsQuery";
-import { Nullable, TypedSupabaseClient } from "@/types";
+import { useSupabaseBrowser } from "@/lib/utils";
+import { listUserItemsQuery } from "@/supabase-query/queries/list-user-items-query";
+import { Nullable } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
 export function useUserItems({
-  client,
   userID,
   enabled,
 }: {
-  client: TypedSupabaseClient;
   userID: Nullable<string>;
   enabled: boolean;
 }) {
+  const client = useSupabaseBrowser();
   return useQuery({
     queryKey: ["users", userID, "items"],
     enabled: enabled && !!userID,

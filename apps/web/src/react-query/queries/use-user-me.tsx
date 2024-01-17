@@ -1,16 +1,11 @@
 "use client";
 
+import { useSupabaseBrowser } from "@/lib/utils";
 import { getUserQuery } from "@/supabase-query/queries/get-user-query";
-import { TypedSupabaseClient } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
-export function useUserMe({
-  client,
-  enabled,
-}: {
-  client: TypedSupabaseClient;
-  enabled: boolean;
-}) {
+export function useUserMe({ enabled }: { enabled: boolean }) {
+  const client = useSupabaseBrowser();
   return useQuery({
     queryKey: ["users", "me"],
     enabled: enabled,

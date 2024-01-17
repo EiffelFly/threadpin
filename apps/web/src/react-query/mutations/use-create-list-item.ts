@@ -1,11 +1,15 @@
 "use client";
 
 import { useSupabaseBrowser } from "@/lib/utils";
-import { CreateItemPayload, createItemMutation } from "@/supabase-query";
+import {
+  CreateListItemPayload,
+  createListItemMutation,
+} from "@/supabase-query";
+import { ClientUserListItem } from "@/types";
 import { Database } from "@/types/database.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export function useCreateItem() {
+export function useCreateListItem() {
   const queryClient = useQueryClient();
   const client = useSupabaseBrowser();
   return useMutation({
@@ -13,10 +17,10 @@ export function useCreateItem() {
       payload,
       userID,
     }: {
-      payload: CreateItemPayload;
+      payload: CreateListItemPayload;
       userID: string;
     }) => {
-      const { data, error } = await createItemMutation(client, payload);
+      const { data, error } = await createListItemMutation(client, payload);
 
       if (error) {
         return Promise.reject(error);
@@ -25,7 +29,7 @@ export function useCreateItem() {
       return { data: data[0], userID };
     },
     onSuccess: ({ data, userID }) => {
-      queryClient.setQueryData<Database["public"]["Tables"]["items"]["Row"][]>(
+      queryClient.setQueryData<ClientUserListItem[]>(
         ["users", userID, "items"],
         (old) => {
           if (!old) {

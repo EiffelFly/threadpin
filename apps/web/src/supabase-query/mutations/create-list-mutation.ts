@@ -7,13 +7,16 @@ export type CreateListPayload = {
   visibility: Database["public"]["Enums"]["Visibility"];
 };
 
-export async function CreateListMutation(
+export async function createListMutation(
   client: TypedSupabaseClient,
   payload: CreateListPayload
 ) {
-  return await client.from("lists").insert({
-    id: payload.id,
-    description: payload.description,
-    visibility: payload.visibility,
-  });
+  return await client
+    .from("lists")
+    .insert({
+      id: payload.id,
+      description: payload.description,
+      visibility: payload.visibility,
+    })
+    .select();
 }

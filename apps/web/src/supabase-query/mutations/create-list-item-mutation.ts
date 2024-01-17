@@ -9,5 +9,9 @@ export async function createListItemMutation(
   client: TypedSupabaseClient,
   payload: CreateListItemPayload
 ) {
-  return await client.from("list_items").insert(payload);
+  return await client.from("list_items").insert(payload).select(`
+    uid,
+    user_id,
+    items (*)
+  `);
 }
