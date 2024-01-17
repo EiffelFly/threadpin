@@ -27,11 +27,13 @@ import {
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { LoadingSpin } from "../ui/loading-spin";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useCreateList } from "@/react-query/mutations/use-create-list";
+import { CreateListPayload } from "@/supabase-query";
+import { useUserMe } from "@/react-query";
 
 const formSchema = z.object({
   id: z.string().min(2).max(63),
-  description: z.string().optional().nullable(),
+  description: z.string().optional(),
 });
 
 export function CreateListDiaglog() {
@@ -43,7 +45,9 @@ export function CreateListDiaglog() {
       description: "",
     },
   });
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const createList = useCreateList();
+  const me = useUserMe({ enabled: true });
 
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
@@ -100,7 +104,9 @@ export function CreateListDiaglog() {
         <DialogFooter>
           <Button form="create-list-form" className="gap-x-2" type="submit">
             Save changes
-            {isSubmitting ? <LoadingSpin className="text-black" /> : null}
+            {createList.isPending ? (
+              <LoadingSpin className="text-black" />
+            ) : null}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -108,17 +114,23 @@ export function CreateListDiaglog() {
   );
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true);
-    const supabase = createClientComponentClient();
-    const { error } = await supabase.from("lists").insert({
-      id: values.id,
-      description: values.description,
-      visibility: "VISIBILITY_PRIVATE",
-    });
+    if (!me.isSuccess || !me.data.data.user) return;
 
-    if (error) {
-      console.error(error);
-      setIsSubmitting(false);
+    const payload: CreateListPayload = {
+      ...values,
+      visibility: "VISIBILITY_PRIVATE",
+    };
+
+    try {
+      createList.mutateAsync({ payload, userID: me.data.data.user.id });
+      setOpen(false);
+      toast.success(
+        "Successfully created your list, you can now add your first item!",
+        {
+          duration: 2500,
+        }
+      );
+    } catch (error) {
       toast.error(
         "Something when wrong when creating your list, please try again later",
         {
@@ -127,14 +139,5 @@ export function CreateListDiaglog() {
       );
       return;
     }
-
-    setIsSubmitting(false);
-    setOpen(false);
-    toast.success(
-      "Successfully created your list, you can now add your first item!",
-      {
-        duration: 2500,
-      }
-    );
   }
 }
