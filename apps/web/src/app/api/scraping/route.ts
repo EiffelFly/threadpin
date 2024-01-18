@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import * as cheerio from "cheerio";
 import * as z from "zod";
 
-export const GetURLDataResponseSchema = z.object({
+const GetURLDataResponseSchema = z.object({
   title: z.string().nullable(),
   description: z.string().nullable(),
   site_name: z.string().nullable(),

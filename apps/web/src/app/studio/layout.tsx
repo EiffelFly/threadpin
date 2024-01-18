@@ -6,6 +6,11 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { Suspense } from "react";
+import { SidebarLists } from "./(sidebar)/sidebar-lists";
+import { SidebarUserInfo } from "./(sidebar)/sidebar-user-info";
+import { UserInfoLoading } from "../../components/studio-sidebar/user-info-loading";
+import { ListsLoading } from "@/components/studio-sidebar/lists-loading";
 
 export default function Layout(props: {
   children: React.ReactNode;
@@ -18,9 +23,15 @@ export default function Layout(props: {
       <ResizablePanelGroup className="rounded-[6px]" direction="horizontal">
         <ResizablePanel defaultSize={40} maxSize={40} minSize={25}>
           <div className="bg-background flex h-full flex-col">
-            {props.sidebarUserInfo}
+            <Suspense fallback={<UserInfoLoading />}>
+              <SidebarUserInfo />
+            </Suspense>
             <Navigation />
-            <div className="flex flex-1">{props.sidebarLists}</div>
+            <div className="flex flex-1">
+              <Suspense fallback={<ListsLoading />}>
+                <SidebarLists />
+              </Suspense>
+            </div>
             <CreateListDiaglog />
           </div>
         </ResizablePanel>

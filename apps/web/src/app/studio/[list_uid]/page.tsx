@@ -1,50 +1,44 @@
 import * as React from "react";
 
-import { getUserQuery, listUserListItemsQuery } from "@/supabase-query";
+import { getUserQuery } from "@/supabase-query";
 import { Database } from "@/types/database.types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { Item } from "@/components/studio-content/item";
+import { prefetchUserListItems } from "@/react-query/queries/use-user-list-items/server";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import { ListItems } from "@/components/studio-content/list-items";
 
 export default async function Page({
   params,
 }: {
   params: { list_uid: string };
 }) {
-  const client = createServerComponentClient<Database>({
+  const supabaseClient = createServerComponentClient<Database>({
     cookies,
   });
 
-  const { data } = await getUserQuery(client);
+  const { data } = await getUserQuery(supabaseClient);
 
   if (!data.user) {
     redirect("/login");
   }
 
-  const listItems = await listUserListItemsQuery(
-    client,
-    data.user.id,
-    params.list_uid
-  );
+  const queryClient = new QueryClient();
+  await prefetchUserListItems({
+    supabaseClient,
+    queryClient,
+    listID: params.list_uid,
+    userID: data.user.id,
+  });
 
   return (
-    <React.Fragment>
-      {listItems.data?.map((item) => {
-        if (!item.items) {
-          return null;
-        }
-
-        return (
-          <Item
-            mode="rich"
-            url={item.items.url}
-            title={item.items.name}
-            description={item.items.description}
-            ogImage={item.items.og_image}
-          />
-        );
-      })}
-    </React.Fragment>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ListItems list_uid={params.list_uid} />
+    </HydrationBoundary>
   );
 }
