@@ -32,7 +32,7 @@ export function CreateItemFields({
 
   const lists = useUserLists({
     enabled: me.isSuccess,
-    userID: me.isSuccess ? me.data.data.user?.id ?? null : null,
+    userID: me.isSuccess ? me.data.user?.id ?? null : null,
   });
 
   const [options, setOptions] = React.useState<SelectOption[]>([]);
@@ -43,7 +43,7 @@ export function CreateItemFields({
   React.useEffect(() => {
     if (!lists.isSuccess) return;
 
-    const options = lists.data.data?.map((list) => ({
+    const options = lists.data.map((list) => ({
       label: list.id,
       value: list.uid,
     }));

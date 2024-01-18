@@ -65,7 +65,7 @@ export const ProcessingURLDrawer = () => {
   async function onCreateItemSubmit(
     formData: z.infer<typeof CreateItemFormSchema>
   ) {
-    if (!url || !urlData || !me.isSuccess || !me.data.data.user) return;
+    if (!url || !urlData || !me.isSuccess) return;
 
     const payload: CreateItemPayload = {
       name: formData.title,
@@ -77,7 +77,7 @@ export const ProcessingURLDrawer = () => {
     try {
       const { data } = await createItem.mutateAsync({
         payload,
-        userID: me.data.data.user.id,
+        userID: me.data.user.id,
       });
 
       if (formData.lists.length > 0) {
@@ -89,7 +89,7 @@ export const ProcessingURLDrawer = () => {
 
           await createListItem.mutateAsync({
             payload: createListItemPayload,
-            userID: me.data.data.user.id,
+            userID: me.data.user.id,
           });
         }
       }

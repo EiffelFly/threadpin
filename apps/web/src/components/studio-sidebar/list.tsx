@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export function ListSkeleton() {
   return (
-    <div className="flex rounded-lg px-4 py-1">
+    <div className="flex rounded-lg py-1">
       <Skeleton className="my-auto flex h-7 w-full" />
     </div>
   );

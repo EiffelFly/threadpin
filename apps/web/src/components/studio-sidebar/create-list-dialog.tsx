@@ -114,7 +114,7 @@ export function CreateListDiaglog() {
   );
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (!me.isSuccess || !me.data.data.user) return;
+    if (!me.isSuccess) return;
 
     const payload: CreateListPayload = {
       ...values,
@@ -122,7 +122,7 @@ export function CreateListDiaglog() {
     };
 
     try {
-      createList.mutateAsync({ payload, userID: me.data.data.user.id });
+      createList.mutateAsync({ payload, userID: me.data.user.id });
       setOpen(false);
       toast.success(
         "Successfully created your list, you can now add your first item!",

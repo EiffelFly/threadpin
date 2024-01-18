@@ -1,5 +1,6 @@
+"use client";
+
 import { ItemsDisplayMode, Nullable } from "@/types";
-import Image from "next/image";
 
 export function Item({
   url,
@@ -28,10 +29,12 @@ export function Item({
 
 function ListItem({ url, title }: { url: string; title: string }) {
   return (
-    <div className="flex flex-col gap-y-1">
-      <p className="typography-large text-foreground">{title}</p>
-      <p className="typography-muted text-muted-foreground">{url}</p>
-    </div>
+    <a
+      href={url}
+      className="typography-large text-foreground break-all hover:cursor-pointer hover:!underline"
+    >
+      {title}
+    </a>
   );
 }
 
@@ -47,15 +50,18 @@ function RichListItem({
   description: Nullable<string>;
 }) {
   return (
-    <div className="border-border flex flex-row gap-x-4 rounded border p-4">
+    <div className="border-border flex h-[150px] flex-row gap-x-4 rounded border p-4">
       {ogImage ? (
-        <div className="relative h-full min-w-[200px]">
-          <Image className="object-contain" fill src={ogImage} alt={title} />
+        <div className="flex h-full w-[200px] shrink-0 grow-0">
+          {/* <Image className="object-contain" fill src={ogImage} alt={title} /> */}
+          <img className="object-contain" src={ogImage} alt={title} />
         </div>
       ) : null}
       <div className="flex flex-col gap-y-2">
         <p className="typography-large text-foreground">{title}</p>
-        <p className="typography-muted text-muted-foreground">{description}</p>
+        <p className="typography-muted text-muted-foreground">
+          <span className="line-clamp-2">{description}</span>
+        </p>
         <a
           href={url}
           className="typography-muted !text-muted-foreground/60 hover:!text-muted-foreground break-all hover:cursor-pointer hover:underline"
