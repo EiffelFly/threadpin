@@ -10,7 +10,13 @@ export function useUserMe({ enabled }: { enabled: boolean }) {
     queryKey: ["users", "me"],
     enabled: enabled,
     queryFn: async () => {
-      return await getUserQuery(client);
+      const { data, error } = await getUserQuery(client);
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
     },
   });
 }

@@ -2,9 +2,9 @@
 
 import { useSupabaseBrowser } from "@/lib/utils";
 import { CreateListPayload, createListMutation } from "@/supabase-query";
-import { TypedSupabaseClient } from "@/types";
 import { Database } from "@/types/database.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getUseUserListsQueryKey } from "../queries/use-user-lists";
 
 export function useCreateList() {
   const queryClient = useQueryClient();
@@ -26,8 +26,9 @@ export function useCreateList() {
       return { data: data[0], userID };
     },
     onSuccess: ({ data, userID }) => {
+      const useUserListsQueryKey = getUseUserListsQueryKey(userID);
       queryClient.setQueryData<Database["public"]["Tables"]["lists"]["Row"][]>(
-        ["users", userID, "lists"],
+        useUserListsQueryKey,
         (old) => {
           if (!old) {
             return [data];

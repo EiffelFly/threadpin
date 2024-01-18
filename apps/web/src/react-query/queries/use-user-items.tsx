@@ -21,7 +21,13 @@ export function useUserItems({
         throw new Error("userID is not provided");
       }
 
-      return await listUserItemsQuery(client, userID);
+      const { data, error } = await listUserItemsQuery(client, userID);
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
     },
   });
 }

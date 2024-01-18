@@ -1,9 +1,7 @@
-"use client";
-
 import { useSupabaseBrowser } from "@/lib/utils";
-import { listUserListsQuery } from "@/supabase-query/queries/list-user-lists-query";
 import { Nullable } from "@/types";
 import { useQuery } from "@tanstack/react-query";
+import { fetchUserLists, getUseUserListsQueryKey } from "./server";
 
 export function useUserLists({
   userID,
@@ -13,15 +11,12 @@ export function useUserLists({
   enabled: boolean;
 }) {
   const client = useSupabaseBrowser();
+  const queryKey = getUseUserListsQueryKey(userID);
   return useQuery({
-    queryKey: ["users", userID, "lists"],
+    queryKey,
     enabled: enabled && !!userID,
     queryFn: async () => {
-      if (!userID) {
-        throw new Error("userID is not provided");
-      }
-
-      return await listUserListsQuery(client, userID);
+      return await fetchUserLists({ client, userID });
     },
   });
 }

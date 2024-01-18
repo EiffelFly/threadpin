@@ -6,8 +6,8 @@ import {
   createListItemMutation,
 } from "@/supabase-query";
 import { ClientUserListItem } from "@/types";
-import { Database } from "@/types/database.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getUseUserListItemsQueryKey } from "../queries/use-user-list-items";
 
 export function useCreateListItem() {
   const queryClient = useQueryClient();
@@ -26,11 +26,27 @@ export function useCreateListItem() {
         return Promise.reject(error);
       }
 
-      return { data: data[0], userID };
+      return { data: data[0], userID, listID: payload.list_uid };
     },
-    onSuccess: ({ data, userID }) => {
+    onSuccess: ({ data, userID, listID }) => {
       queryClient.setQueryData<ClientUserListItem[]>(
         ["users", userID, "items"],
+        (old) => {
+          if (!old) {
+            return [data];
+          }
+
+          return [...old, data];
+        }
+      );
+
+      const useUserListItemsQueryKey = getUseUserListItemsQueryKey(
+        userID,
+        listID
+      );
+
+      queryClient.setQueryData<ClientUserListItem[]>(
+        useUserListItemsQueryKey,
         (old) => {
           if (!old) {
             return [data];

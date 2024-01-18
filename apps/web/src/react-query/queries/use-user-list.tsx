@@ -27,7 +27,13 @@ export function useUserList({
         throw new Error("listID is not provided");
       }
 
-      return await getUserListQuery(client, listID);
+      const { data, error } = await getUserListQuery(client, listID);
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
     },
   });
 }
