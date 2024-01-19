@@ -11,11 +11,11 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export async function SidebarLists() {
-  const client = createServerComponentClient<Database>({ cookies });
+  const supabaseClient = createServerComponentClient<Database>({ cookies });
 
   const {
     data: { user },
-  } = await client.auth.getUser();
+  } = await supabaseClient.auth.getUser();
 
   if (!user) {
     redirect("/login");
@@ -24,7 +24,7 @@ export async function SidebarLists() {
   const queryClient = new QueryClient();
   await prefetchUserLists({
     queryClient,
-    supabaseClient: client,
+    supabaseClient,
     userID: user.id,
   });
 

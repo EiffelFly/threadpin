@@ -1,12 +1,12 @@
 import * as React from "react";
-import { ListSkeleton } from "@/components/studio-sidebar/list";
+import { Skeleton } from "../ui/skeleton";
 
 export function ListsLoading() {
   return (
-    <React.Fragment>
-      {Array.from({ length: 3 }).map((_, i) => (
-        <ListSkeleton key={i} />
-      ))}
-    </React.Fragment>
+    <div className="flex w-full flex-col gap-y-4 py-3 pl-8 pr-6">
+      <Skeleton className="flex h-7 w-full" />
+      <Skeleton className="flex h-7 w-full" />
+      <Skeleton className="flex h-7 w-full" />
+    </div>
   );
 }

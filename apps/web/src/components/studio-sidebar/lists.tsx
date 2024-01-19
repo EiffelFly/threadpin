@@ -1,4 +1,5 @@
 "use client";
+
 import { useUserLists, useUserMe } from "@/react-query";
 import * as React from "react";
 import { List } from "./list";
@@ -11,15 +12,13 @@ export function Lists() {
     enabled: me.isSuccess,
   });
 
-  return (
-    <div className="flex w-full flex-col gap-y-4 px-6 py-3">
-      {lists.isSuccess ? (
-        lists.data.map((list) => {
-          return <List id={list.id} uid={list.uid} />;
-        })
-      ) : (
-        <ListsLoading />
-      )}
+  return lists.isSuccess ? (
+    <div className="flex w-full flex-col gap-y-4 py-3 pl-8 pr-6">
+      {lists.data.map((list) => {
+        return <List id={list.id} uid={list.uid} />;
+      })}
     </div>
+  ) : (
+    <ListsLoading />
   );
 }

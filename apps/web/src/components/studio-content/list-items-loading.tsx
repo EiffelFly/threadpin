@@ -1,5 +1,4 @@
 import * as React from "react";
-import { ListItemSkeleton } from "./list-items";
 import { ItemsDisplayMode } from "@/types";
 import { Skeleton } from "../ui/skeleton";
 
@@ -11,10 +10,18 @@ export function ListItemsLoading({ mode }: { mode: ItemsDisplayMode }) {
         <Skeleton className="h-10 w-10" />
       </div>
       <div className="flex flex-col gap-y-4">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <ListItemSkeleton mode={mode} key={i} />
-        ))}
+        <ListItemSkeleton mode={mode} />
+        <ListItemSkeleton mode={mode} />
+        <ListItemSkeleton mode={mode} />
       </div>
     </div>
+  );
+}
+
+export function ListItemSkeleton({ mode }: { mode: ItemsDisplayMode }) {
+  return mode === "rich" ? (
+    <Skeleton className="h-[150px] w-full" />
+  ) : (
+    <Skeleton className="h-8 w-full" />
   );
 }
