@@ -1,7 +1,8 @@
 create table "public"."stickers" (
     "uid" uuid not null default gen_random_uuid(),
-    "id" character varying,
-    "asset_url" character varying,
+    "id" character varying not null,
+    "user_id" uuid default auth.uid(),
+    "asset_url" character varying not null,
     "visibility" "Visibility",
     "description" text,
     "created_at" timestamp with time zone not null default now(),
