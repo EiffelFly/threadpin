@@ -1,11 +1,11 @@
 create extension if not exists "pg_jsonschema" with schema "extensions";
 
 
-alter table "public"."profiles" add column "list_order_record" jsonb;
+alter table "public"."profiles" add column "lists_order_record" jsonb;
 
 
 alter table "public"."profiles"
-add constraint check_list_order_record check (
+add constraint check_lists_order_record check (
   jsonb_matches_schema(
     '{
           "type": "array",
@@ -21,6 +21,6 @@ add constraint check_list_order_record check (
               }
           }
       }',
-    list_order_record
+    lists_order_record
   )
 );
