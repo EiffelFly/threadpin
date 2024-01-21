@@ -1,5 +1,5 @@
 import { Lists } from "@/components/studio-sidebar/lists";
-import { prefetchUserLists } from "@/react-query";
+import { prefetchUserLists, prefetchUserProfile } from "@/react-query";
 import { Database } from "@/types/database.types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import {
@@ -26,6 +26,12 @@ export async function SidebarLists() {
     queryClient,
     supabaseClient,
     userID: user.id,
+  });
+
+  await prefetchUserProfile({
+    queryClient,
+    supabaseClient,
+    user_id: user.id,
   });
 
   return (
