@@ -4,6 +4,7 @@ import { Database } from "@/types/database.types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { S3Client } from "@aws-sdk/client-s3";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -35,4 +36,27 @@ function getSupabaseBrowserClient() {
 
 export function useSupabaseBrowser() {
   return React.useMemo(getSupabaseBrowserClient, []);
+}
+
+let r2Client: S3Client | undefined;
+
+function getR2Client() {
+  if (r2Client) {
+    return r2Client;
+  }
+
+  r2Client = new S3Client({
+    region: "auto",
+    endpoint: process.env.R2_ENDPOINT || "",
+    credentials: {
+      accessKeyId: process.env.R2_ACCESS_KEY_ID || "",
+      secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || "",
+    },
+  });
+
+  return r2Client;
+}
+
+export function useR2Client() {
+  return React.useMemo(getR2Client, []);
 }
