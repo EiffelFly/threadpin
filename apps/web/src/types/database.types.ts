@@ -172,6 +172,36 @@ export interface Database {
         }
         Relationships: []
       }
+      stickers: {
+        Row: {
+          asset_url: string | null
+          created_at: string
+          description: string | null
+          id: string | null
+          uid: string
+          updated_at: string | null
+          visibility: Database["public"]["Enums"]["Visibility"] | null
+        }
+        Insert: {
+          asset_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string | null
+          uid?: string
+          updated_at?: string | null
+          visibility?: Database["public"]["Enums"]["Visibility"] | null
+        }
+        Update: {
+          asset_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string | null
+          uid?: string
+          updated_at?: string | null
+          visibility?: Database["public"]["Enums"]["Visibility"] | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
