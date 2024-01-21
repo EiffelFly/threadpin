@@ -7,7 +7,7 @@ import {
 } from "@/supabase-query";
 import { Database } from "@/types/database.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getUseUserProfileQueryKey } from "../queries/user-user-profile";
+import { getUseUserProfileQueryKey } from "../queries/use-user-profile";
 
 export function useUpdateUserProfile() {
   const queryClient = useQueryClient();

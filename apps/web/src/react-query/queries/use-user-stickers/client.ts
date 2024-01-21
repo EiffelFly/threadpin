@@ -3,9 +3,9 @@
 import { useSupabaseBrowser } from "@/lib/utils";
 import { Nullable } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserProfile, getUseUserProfileQueryKey } from "./server";
+import { fetchUserStickers, getUseUserStickersQueryKey } from "./server";
 
-export function useUserProfile({
+export function useUserStickers({
   user_id,
   enabled,
 }: {
@@ -13,12 +13,12 @@ export function useUserProfile({
   enabled: boolean;
 }) {
   const supabaseClient = useSupabaseBrowser();
-  const queryKey = getUseUserProfileQueryKey(user_id);
+  const queryKey = getUseUserStickersQueryKey(user_id);
   return useQuery({
     queryKey,
     enabled: enabled && !!user_id,
     queryFn: async () => {
-      return await fetchUserProfile({ supabaseClient, user_id });
+      return await fetchUserStickers({ supabaseClient, user_id });
     },
   });
 }
