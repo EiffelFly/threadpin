@@ -7,6 +7,7 @@ import "./github-markdown.css";
 import { ProcessingURLDrawer } from "@/components/processing-url-drawer/processing-url-drawer";
 import { SupabaseProvider } from "./supabase-provider";
 import { ReactQueryProvider } from "./react-query-client-provider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export default function RootLayout({
   children,
@@ -30,6 +31,7 @@ export default function RootLayout({
             </ThemeProvider>
             <ProcessingURLDrawer />
             <Toaster />
+            <ReactQueryDevtools initialIsOpen={false} />
           </SupabaseProvider>
         </ReactQueryProvider>
       </body>

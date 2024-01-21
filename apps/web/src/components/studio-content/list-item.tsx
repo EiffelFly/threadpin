@@ -50,9 +50,9 @@ function RichListItem({
   description: Nullable<string>;
 }) {
   return (
-    <div className="border-border flex h-[150px] flex-row gap-x-4 rounded border p-4">
+    <div className="border-border flex min-h-[150px] flex-row gap-x-4 rounded border p-4">
       {ogImage ? (
-        <div className="flex h-full w-[200px] shrink-0 grow-0">
+        <div className="flex h-[150px] w-[200px] shrink-0 grow-0">
           {/* <Image className="object-contain" fill src={ogImage} alt={title} /> */}
           <img className="object-contain" src={ogImage} alt={title} />
         </div>

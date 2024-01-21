@@ -19,7 +19,7 @@ export function Lists() {
     enabled: me.isSuccess,
   });
   const lists = useUserLists({
-    userID: me.data?.user?.id ?? null,
+    userID: me.isSuccess ? me.data.user.id : null,
     enabled: me.isSuccess,
   });
 
@@ -59,8 +59,14 @@ export function Lists() {
       }
     }
 
+    for (const list of lists.data) {
+      if (!listsInOrder.some((listInOrder) => listInOrder.uid === list.uid)) {
+        listsInOrder.push(list);
+      }
+    }
+
     setListsInOrder(listsInOrder);
-  }, [profile.data, profile.isSuccess, lists.isSuccess]);
+  }, [profile.data, profile.isSuccess, lists.isSuccess, lists.data]);
 
   const updateUserProfile = useUpdateUserProfile();
   const onDragEnd = React.useCallback(

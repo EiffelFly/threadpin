@@ -28,8 +28,11 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { LoadingSpin } from "../ui/loading-spin";
 import { useCreateList } from "@/react-query/mutations/use-create-list";
-import { CreateListPayload } from "@/supabase-query";
-import { useUserMe } from "@/react-query";
+import { CreateListPayload, UpdateUserProfilePayload } from "@/supabase-query";
+import { useUserLists, useUserMe, useUserProfile } from "@/react-query";
+import { useUpdateUserProfile } from "@/react-query/mutations/use-update-user-profile";
+import { toastError } from "@/lib/toast-error";
+import { ListsOrderRecordSchema } from "@/lib/validator";
 
 const formSchema = z.object({
   id: z.string().min(2).max(63),
@@ -46,8 +49,13 @@ export function CreateListDiaglog() {
     },
   });
 
-  const createList = useCreateList();
   const me = useUserMe({ enabled: true });
+  const profile = useUserProfile({
+    user_id: me.isSuccess ? me.data.user.id : null,
+    enabled: me.isSuccess,
+  });
+  const createList = useCreateList();
+  const updateUserProfile = useUpdateUserProfile();
 
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
@@ -114,15 +122,57 @@ export function CreateListDiaglog() {
   );
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (!me.isSuccess) return;
+    if (!me.isSuccess || !profile.isSuccess) return;
 
     const payload: CreateListPayload = {
       ...values,
       visibility: "VISIBILITY_PRIVATE",
     };
 
+    const { lists_order_record } = profile.data;
+
+    let updateUserProfilePayload: UpdateUserProfilePayload;
+
+    if (!lists_order_record) {
+      updateUserProfilePayload = {
+        lists_order_record: [
+          {
+            list_uid: payload.id,
+            order: 0,
+          },
+        ],
+      };
+    } else {
+      const parsed = ListsOrderRecordSchema.safeParse(lists_order_record);
+
+      if (parsed.success) {
+        updateUserProfilePayload = {
+          lists_order_record: [
+            ...parsed.data,
+            {
+              list_uid: payload.id,
+              order: parsed.data.length,
+            },
+          ],
+        };
+      } else {
+        updateUserProfilePayload = {
+          lists_order_record: [
+            {
+              list_uid: payload.id,
+              order: 0,
+            },
+          ],
+        };
+      }
+    }
+
     try {
-      createList.mutateAsync({ payload, userID: me.data.user.id });
+      await createList.mutateAsync({ payload, userID: me.data.user.id });
+      await updateUserProfile.mutateAsync({
+        user_id: me.data.user.id,
+        payload: updateUserProfilePayload,
+      });
       setOpen(false);
       toast.success(
         "Successfully created your list, you can now add your first item!",
@@ -131,13 +181,7 @@ export function CreateListDiaglog() {
         }
       );
     } catch (error) {
-      toast.error(
-        "Something when wrong when creating your list, please try again later",
-        {
-          duration: 3000,
-        }
-      );
-      return;
+      toastError("Failed to create list");
     }
   }
 }
