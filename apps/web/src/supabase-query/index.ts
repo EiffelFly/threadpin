@@ -9,3 +9,4 @@ export * from "./mutations/create-list-item-mutation";
 export * from "./mutations/create-list-mutation";
 export * from "./mutations/delete-list-mutation";
 export * from "./mutations/update-user-profile";
+export * from "./mutations/delete-sticker-mutation";

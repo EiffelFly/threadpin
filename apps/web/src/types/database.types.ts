@@ -174,28 +174,28 @@ export interface Database {
       }
       stickers: {
         Row: {
-          asset_url: string | null
+          asset_url: string
           created_at: string
           description: string | null
-          id: string | null
+          id: string
           uid: string
           updated_at: string | null
           visibility: Database["public"]["Enums"]["Visibility"] | null
         }
         Insert: {
-          asset_url?: string | null
+          asset_url: string
           created_at?: string
           description?: string | null
-          id?: string | null
+          id: string
           uid?: string
           updated_at?: string | null
           visibility?: Database["public"]["Enums"]["Visibility"] | null
         }
         Update: {
-          asset_url?: string | null
+          asset_url?: string
           created_at?: string
           description?: string | null
-          id?: string | null
+          id?: string
           uid?: string
           updated_at?: string | null
           visibility?: Database["public"]["Enums"]["Visibility"] | null
