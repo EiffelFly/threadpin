@@ -29,7 +29,7 @@ import { Textarea } from "../ui/textarea";
 import { LoadingSpin } from "../ui/loading-spin";
 import { useCreateList } from "@/react-query/mutations/use-create-list";
 import { CreateListPayload, UpdateUserProfilePayload } from "@/supabase-query";
-import { useUserLists, useUserMe, useUserProfile } from "@/react-query";
+import { useUserMe, useUserProfile } from "@/react-query";
 import { useUpdateUserProfile } from "@/react-query/mutations/use-update-user-profile";
 import { toastError } from "@/lib/toast-error";
 import { ListsOrderRecordSchema } from "@/lib/validator";
@@ -64,7 +64,7 @@ export function CreateListDiaglog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Add new list</DialogTitle>
+          <DialogTitle>Create new list</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
