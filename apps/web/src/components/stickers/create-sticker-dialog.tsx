@@ -28,7 +28,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { LoadingSpin } from "../ui/loading-spin";
 import { useUserMe } from "@/react-query";
-import { ZodImageValidator } from "@/lib/validator";
+import { ZodSingleImageValidator } from "@/lib/validator";
 import { Nullable } from "@/types";
 import { toastError } from "@/lib/toast-error";
 import { useCreateSticker } from "@/react-query/mutations/use-create-sticker";
@@ -36,7 +36,7 @@ import { useCreateSticker } from "@/react-query/mutations/use-create-sticker";
 const formSchema = z.object({
   id: z.string().min(2).max(63),
   description: z.string().optional(),
-  asset: ZodImageValidator,
+  asset: ZodSingleImageValidator,
 });
 
 export function CreateStickerDiaglog() {
