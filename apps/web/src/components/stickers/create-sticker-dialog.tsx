@@ -4,6 +4,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { Button } from "../ui/button";
 import {
@@ -28,6 +29,9 @@ import { Textarea } from "../ui/textarea";
 import { LoadingSpin } from "../ui/loading-spin";
 import { useUserMe } from "@/react-query";
 import { ZodImageValidator } from "@/lib/validator";
+import { Nullable } from "@/types";
+import { toastError } from "@/lib/toast-error";
+import { useCreateSticker } from "@/react-query/mutations/use-create-sticker";
 
 const formSchema = z.object({
   id: z.string().min(2).max(63),
@@ -47,7 +51,60 @@ export function CreateStickerDiaglog() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
+  const me = useUserMe({ enabled: true });
+  const createSticker = useCreateSticker();
+  async function onSubmit(formValue: z.infer<typeof formSchema>) {
+    if (!me.isSuccess) {
+      return;
+    }
+    setCreating(true);
+
+    const formData = new FormData();
+
+    const stickerUID = uuidv4();
+    formData.set("file", formValue.asset);
+    formData.set("key", stickerUID);
+    formData.set("type", formValue.asset.type);
+
+    let asset_url: Nullable<string> = null;
+
+    try {
+      const res = await fetch("/api/r2", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      asset_url = data.data.asset_url;
+    } catch (error) {
+      console.log(error);
+      toastError("Failed to upload sticker image");
+      setCreating(false);
+      return;
+    }
+
+    if (!asset_url) {
+      setCreating(false);
+      return;
+    }
+
+    try {
+      await createSticker.mutateAsync({
+        user_id: me.data.user.id,
+        payload: {
+          uid: stickerUID,
+          id: formValue.id,
+          description: formValue.description,
+          asset_url,
+          visibility: "VISIBILITY_PRIVATE",
+        },
+      });
+      setCreating(false);
+    } catch (error) {
+      toastError("Failed to upload sticker image");
+      setCreating(false);
+      return;
+    }
+  }
 
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
@@ -106,9 +163,11 @@ export function CreateStickerDiaglog() {
                   <FormLabel>Image</FormLabel>
                   <FormControl>
                     <Input
-                      {...field}
                       type="file"
                       accept="image/png, image/jpeg, image/webp, image/png"
+                      onChange={(e) => {
+                        field.onChange(e.target.files?.[0]);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
