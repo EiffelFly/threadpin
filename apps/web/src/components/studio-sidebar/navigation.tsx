@@ -1,10 +1,17 @@
 import * as React from "react";
 import Link from "next/link";
 import { LayersIcon } from "@radix-ui/react-icons";
+import { MapIcon } from "../ui/extra-icons/MapIcon";
 
 export function Navigation() {
   return (
-    <div className="border-border flex flex-col gap-y-4 border-b px-4 py-3">
+    <div className="border-border flex flex-col gap-y-4 border-b px-6 py-3">
+      <NavigationItem
+        title="World"
+        href="/world"
+        icon={<MapIcon className="stroke-muted-foreground h-3 w-3" />}
+      />
+      <NavigationItem title="Stickers" href="/studio/stickers" icon={<></>} />
       <NavigationItem
         title="All items"
         href="/"
@@ -26,7 +33,7 @@ function NavigationItem({
   return (
     <Link
       href={href}
-      className="hover:bg-accent flex flex-row items-center gap-x-2 rounded"
+      className="hover:bg-accent flex flex-row items-center gap-x-2 rounded px-2"
     >
       <div className="bg-secondary flex h-5 w-5 items-center justify-center rounded">
         {icon}

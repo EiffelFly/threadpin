@@ -18,9 +18,13 @@ export function Stickers() {
       <div className="mb-8 flex w-full justify-end gap-x-2">
         <CreateStickerDiaglog />
       </div>
-      <div className="grid grid-flow-row grid-cols-4">
+      <div className="grid grid-flow-row grid-cols-4 gap-4">
         {stickers.data.map((sticker) => (
-          <Sticker id={sticker.id} asset_url={sticker.asset_url} />
+          <Sticker
+            id={sticker.id}
+            uid={sticker.uid}
+            asset_url={sticker.asset_url}
+          />
         ))}
       </div>
     </div>
