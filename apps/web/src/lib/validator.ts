@@ -14,7 +14,7 @@ export const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 
-const MAX_FILE_SIZE = 500000;
+const MAX_FILE_SIZE = 5000000;
 
 export const ZodSingleImageValidator = z
   .any()
