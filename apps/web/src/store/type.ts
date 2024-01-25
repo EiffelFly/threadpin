@@ -1,4 +1,5 @@
-import { Nullable } from "@/types";
+import { NodeData, Nullable } from "@/types";
+import { Edge, Node, OnEdgesChange, OnNodesChange } from "reactflow";
 import * as z from "zod";
 
 export const ProcessingURLDrawerDataSchema = z.object({
@@ -17,9 +18,18 @@ export type DialogSlice = {
   ) => void;
 };
 
-export type Store = DialogSlice;
+export type PinStore = DialogSlice & WorldSlice;
 
 export type StoreMutators = [
   ["zustand/devtools", never],
   ["zustand/subscribeWithSelector", never],
 ];
+
+export type WorldSlice = {
+  nodes: Node<NodeData>[];
+  updateNodes: (fn: (prev: Node<NodeData>[]) => Node<NodeData>[]) => void;
+  edges: Edge[];
+  updateEdges: (fn: (prev: Edge[]) => Edge[]) => void;
+  onNodesChange: OnNodesChange;
+  onEdgesChange: OnEdgesChange;
+};

@@ -1,8 +1,8 @@
 import { StateCreator } from "zustand";
-import { DialogSlice, Store, StoreMutators } from "./type";
+import { DialogSlice, PinStore, StoreMutators } from "./type";
 
 export const createDialogSlice: StateCreator<
-  Store,
+  PinStore,
   StoreMutators,
   [],
   DialogSlice
