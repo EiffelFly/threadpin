@@ -1,9 +1,7 @@
 import { StateCreator } from "zustand";
-import { DialogSlice, PinStore, StoreMutators, WorldSlice } from "./type";
-import { NodeData } from "@/types";
+import { PinStore, StoreMutators, WorldSlice } from "./type";
 import {
   EdgeChange,
-  Node,
   NodeChange,
   applyEdgeChanges,
   applyNodeChanges,
@@ -29,4 +27,7 @@ export const createWorldSlice: StateCreator<
       edges: applyEdgeChanges(changes, get().edges),
     });
   },
+  worldIsDirty: false,
+  updateWorldIsDirty: (fn) =>
+    set((state) => ({ worldIsDirty: fn(state.worldIsDirty) })),
 });

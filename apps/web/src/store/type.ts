@@ -32,4 +32,6 @@ export type WorldSlice = {
   updateEdges: (fn: (prev: Edge[]) => Edge[]) => void;
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
+  worldIsDirty: boolean;
+  updateWorldIsDirty: (fn: (prev: boolean) => boolean) => void;
 };

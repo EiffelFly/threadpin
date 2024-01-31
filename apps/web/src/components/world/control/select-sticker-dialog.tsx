@@ -19,6 +19,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const selector = (store: PinStore) => ({
   updateNodes: store.updateNodes,
+  updateWorldIsDirty: store.updateWorldIsDirty,
 });
 
 export function SelectStickerDialog() {
@@ -29,7 +30,7 @@ export function SelectStickerDialog() {
     enabled: me.isSuccess,
   });
 
-  const { updateNodes } = usePinStore(useShallow(selector));
+  const { updateNodes, updateWorldIsDirty } = usePinStore(useShallow(selector));
 
   function onSelect(sticker: Sticker) {
     const uid = uuidv4();
@@ -52,6 +53,7 @@ export function SelectStickerDialog() {
     });
 
     setOpen(false);
+    updateWorldIsDirty(() => true);
   }
 
   return (

@@ -36,3 +36,14 @@ export type Sticker = Database["public"]["Tables"]["stickers"]["Row"];
 export type List = Database["public"]["Tables"]["lists"]["Row"];
 export type ListItem = Database["public"]["Tables"]["list_items"]["Row"];
 export type Item = Database["public"]["Tables"]["items"]["Row"];
+
+// Universe -> World -> List -> ListItem -> Item
+
+export type ComponentType = "COMPONENT_TYPE_WORLD" | "COMPONENT_TYPE_LIST";
+
+export type Recipe = {
+  components: {
+    uid: string;
+    component_type: ComponentType;
+  };
+};
