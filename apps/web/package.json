@@ -58,6 +58,8 @@
   "devDependencies": {
     "@pinyard/eslint-config": "workspace:*",
     "@pinyard/tsconfig": "workspace:*",
+    "@types/d3-drag": "^3.0.7",
+    "@types/d3-selection": "^3.0.10",
     "@types/node": "^20.9.4",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",

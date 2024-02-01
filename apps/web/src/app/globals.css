@@ -150,3 +150,17 @@
     --gradient-angle: 0deg;
   }
 }
+
+/* For reactflow */
+.react-flow__resize-control.handle.bottom, .react-flow__resize-control.handle.top {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: none;
+  background-color: hsl(var(--muted-foreground));
+}
+
+.react-flow__resize-control.line.top, .react-flow__resize-control.line.bottom, .react-flow__resize-control.line.left, .react-flow__resize-control.line.right{
+  width: 2px;
+  border-color: hsl(var(--muted-foreground));
+}

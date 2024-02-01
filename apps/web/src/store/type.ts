@@ -34,4 +34,8 @@ export type WorldSlice = {
   onEdgesChange: OnEdgesChange;
   worldIsDirty: boolean;
   updateWorldIsDirty: (fn: (prev: boolean) => boolean) => void;
+  selectedNodeID: Nullable<string>;
+  updateSelectedNodeID: (
+    fn: (prev: Nullable<string>) => Nullable<string>
+  ) => void;
 };

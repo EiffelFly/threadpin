@@ -30,4 +30,7 @@ export const createWorldSlice: StateCreator<
   worldIsDirty: false,
   updateWorldIsDirty: (fn) =>
     set((state) => ({ worldIsDirty: fn(state.worldIsDirty) })),
+  selectedNodeID: null,
+  updateSelectedNodeID: (fn) =>
+    set((state) => ({ selectedNodeID: fn(state.selectedNodeID) })),
 });

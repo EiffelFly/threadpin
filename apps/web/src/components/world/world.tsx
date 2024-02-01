@@ -12,14 +12,14 @@ const selector = (store: PinStore) => ({
   edges: store.edges,
   onNodesChange: store.onNodesChange,
   onEdgesChange: store.onEdgesChange,
+  updateSelectedNodeID: store.updateSelectedNodeID,
 });
 
 const nodeTypes = { sticker_node: StickerNode };
 
 export function World() {
-  const { nodes, edges, onNodesChange, onEdgesChange } = usePinStore(
-    useShallow(selector)
-  );
+  const { nodes, edges, onNodesChange, onEdgesChange, updateSelectedNodeID } =
+    usePinStore(useShallow(selector));
 
   return (
     <div className="relative h-full w-full">
@@ -29,6 +29,7 @@ export function World() {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        onPaneClick={() => updateSelectedNodeID(() => null)}
         proOptions={{ hideAttribution: true }}
       >
         <Background color="#E9E9F5" />

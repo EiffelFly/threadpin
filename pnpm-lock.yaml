@@ -165,6 +165,12 @@ importers:
       '@pinyard/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
+      '@types/d3-drag':
+        specifier: ^3.0.7
+        version: 3.0.7
+      '@types/d3-selection':
+        specifier: ^3.0.10
+        version: 3.0.10
       '@types/node':
         specifier: ^20.9.4
         version: 20.9.4
@@ -3374,7 +3380,6 @@ packages:
     resolution: {integrity: sha512-HE3jVKlzU9AaMazNufooRJ5ZpWmLIoc90A37WU2JMmeq28w1FQqCZswHZ3xR+SuxYftzHq6WU6KJHvqxKzTxxQ==}
     dependencies:
       '@types/d3-selection': 3.0.10
-    dev: false
 
   /@types/d3-dsv@3.0.7:
     resolution: {integrity: sha512-n6QBF9/+XASqcKK6waudgL0pf/S5XHPPI8APyMLLUHd8NqouBGLsU8MgtO7NINGtPBtk9Kko/W4ea0oAspwh9g==}
@@ -3442,7 +3447,6 @@ packages:
 
   /@types/d3-selection@3.0.10:
     resolution: {integrity: sha512-cuHoUgS/V3hLdjJOLTT691+G2QoqAjCVLmr4kJXR4ha56w1Zdu8UUQ5TxLRqudgNjwXeQxKMq4j+lyf9sWuslg==}
-    dev: false
 
   /@types/d3-shape@3.1.6:
     resolution: {integrity: sha512-5KKk5aKGu2I+O6SONMYSNflgiP0WfZIQvVUMan50wHsLG1G94JlxEVnCpQARfTtzytuY0p/9PXXZb3I7giofIA==}
