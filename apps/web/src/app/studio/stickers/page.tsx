@@ -25,7 +25,7 @@ export default async function StickersPage() {
   const queryClient = new QueryClient();
 
   await prefetchUserStickers({
-    user_id: data.user.id,
+    user_uid: data.user.id,
     queryClient,
     supabaseClient,
   });

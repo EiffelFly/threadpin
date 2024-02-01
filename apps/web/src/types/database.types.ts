@@ -43,7 +43,7 @@ export interface Database {
           uid: string
           updated_at: string | null
           url: string
-          user_id: string | null
+          user_uid: string | null
         }
         Insert: {
           created_at?: string
@@ -53,7 +53,7 @@ export interface Database {
           uid?: string
           updated_at?: string | null
           url: string
-          user_id?: string | null
+          user_uid?: string | null
         }
         Update: {
           created_at?: string
@@ -63,7 +63,7 @@ export interface Database {
           uid?: string
           updated_at?: string | null
           url?: string
-          user_id?: string | null
+          user_uid?: string | null
         }
         Relationships: []
       }
@@ -73,21 +73,21 @@ export interface Database {
           item_uid: string
           list_uid: string
           uid: string
-          user_id: string | null
+          user_uid: string | null
         }
         Insert: {
           created_at?: string
           item_uid: string
           list_uid: string
           uid?: string
-          user_id?: string | null
+          user_uid?: string | null
         }
         Update: {
           created_at?: string
           item_uid?: string
           list_uid?: string
           uid?: string
-          user_id?: string | null
+          user_uid?: string | null
         }
         Relationships: [
           {
@@ -113,7 +113,7 @@ export interface Database {
           id: string
           uid: string
           updated_at: string | null
-          user_id: string | null
+          user_uid: string | null
           visibility: Database["public"]["Enums"]["Visibility"] | null
         }
         Insert: {
@@ -122,7 +122,7 @@ export interface Database {
           id: string
           uid?: string
           updated_at?: string | null
-          user_id?: string | null
+          user_uid?: string | null
           visibility?: Database["public"]["Enums"]["Visibility"] | null
         }
         Update: {
@@ -131,7 +131,7 @@ export interface Database {
           id?: string
           uid?: string
           updated_at?: string | null
-          user_id?: string | null
+          user_uid?: string | null
           visibility?: Database["public"]["Enums"]["Visibility"] | null
         }
         Relationships: []
@@ -146,7 +146,7 @@ export interface Database {
           lists_order_record: Json | null
           uid: string
           updated_at: string | null
-          user_id: string | null
+          user_uid: string | null
         }
         Insert: {
           avatar_url?: string | null
@@ -157,7 +157,7 @@ export interface Database {
           lists_order_record?: Json | null
           uid?: string
           updated_at?: string | null
-          user_id?: string | null
+          user_uid?: string | null
         }
         Update: {
           avatar_url?: string | null
@@ -168,7 +168,7 @@ export interface Database {
           lists_order_record?: Json | null
           uid?: string
           updated_at?: string | null
-          user_id?: string | null
+          user_uid?: string | null
         }
         Relationships: []
       }
@@ -180,6 +180,7 @@ export interface Database {
           id: string
           uid: string
           updated_at: string | null
+          user_uid: string | null
           visibility: Database["public"]["Enums"]["Visibility"] | null
         }
         Insert: {
@@ -189,6 +190,7 @@ export interface Database {
           id: string
           uid?: string
           updated_at?: string | null
+          user_uid?: string | null
           visibility?: Database["public"]["Enums"]["Visibility"] | null
         }
         Update: {
@@ -198,7 +200,35 @@ export interface Database {
           id?: string
           uid?: string
           updated_at?: string | null
+          user_uid?: string | null
           visibility?: Database["public"]["Enums"]["Visibility"] | null
+        }
+        Relationships: []
+      }
+      worlds: {
+        Row: {
+          created_at: string
+          id: string | null
+          recipe: Json | null
+          uid: string
+          updated_at: string | null
+          user_uid: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string | null
+          recipe?: Json | null
+          uid?: string
+          updated_at?: string | null
+          user_uid?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string | null
+          recipe?: Json | null
+          uid?: string
+          updated_at?: string | null
+          user_uid?: string | null
         }
         Relationships: []
       }

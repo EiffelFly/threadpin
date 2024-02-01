@@ -9,7 +9,7 @@ import { CreateStickerDiaglog } from "./create-sticker-dialog";
 export function Stickers() {
   const me = useUserMe({ enabled: true });
   const stickers = useUserStickers({
-    user_id: me.isSuccess ? me.data.user.id : null,
+    user_uid: me.isSuccess ? me.data.user.id : null,
     enabled: me.isSuccess,
   });
 

@@ -15,7 +15,7 @@ import { toastError } from "@/lib/toast-error";
 export function Lists() {
   const me = useUserMe({ enabled: true });
   const profile = useUserProfile({
-    user_id: me.isSuccess ? me.data.user.id : null,
+    user_uid: me.isSuccess ? me.data.user.id : null,
     enabled: me.isSuccess,
   });
   const lists = useUserLists({
@@ -91,7 +91,7 @@ export function Lists() {
         try {
           setListsInOrder(newLists);
           await updateUserProfile.mutateAsync({
-            user_id: me.data.user.id,
+            user_uid: me.data.user.id,
             payload: {
               lists_order_record: newListsOrderRecord,
             },

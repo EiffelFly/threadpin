@@ -3,17 +3,17 @@ import { Nullable, TypedSupabaseClient } from "@/types";
 import { QueryClient } from "@tanstack/react-query";
 
 export async function fetchUserProfile({
-  user_id,
+  user_uid,
   supabaseClient,
 }: {
-  user_id: Nullable<string>;
+  user_uid: Nullable<string>;
   supabaseClient: TypedSupabaseClient;
 }) {
-  if (!user_id) {
-    throw new Error("user_id is not provided");
+  if (!user_uid) {
+    throw new Error("user_uid is not provided");
   }
 
-  const { data, error } = await getUserProfileQuery(supabaseClient, user_id);
+  const { data, error } = await getUserProfileQuery(supabaseClient, user_uid);
 
   if (error) {
     throw error;
@@ -22,25 +22,25 @@ export async function fetchUserProfile({
   return data;
 }
 
-export function getUseUserProfileQueryKey(user_id: Nullable<string>) {
-  return ["users", user_id, "profile"];
+export function getUseUserProfileQueryKey(user_uid: Nullable<string>) {
+  return ["users", user_uid, "profile"];
 }
 
 export function prefetchUserProfile({
-  user_id,
+  user_uid,
   supabaseClient,
   queryClient,
 }: {
-  user_id: Nullable<string>;
+  user_uid: Nullable<string>;
   supabaseClient: TypedSupabaseClient;
   queryClient: QueryClient;
 }) {
-  const queryKey = getUseUserProfileQueryKey(user_id);
+  const queryKey = getUseUserProfileQueryKey(user_uid);
 
   return queryClient.prefetchQuery({
     queryKey,
     queryFn: async () => {
-      return await fetchUserProfile({ supabaseClient, user_id });
+      return await fetchUserProfile({ supabaseClient, user_uid });
     },
   });
 }

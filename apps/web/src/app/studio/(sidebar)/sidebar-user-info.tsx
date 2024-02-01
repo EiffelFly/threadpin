@@ -23,7 +23,7 @@ export async function SidebarUserInfo() {
 
   const queryClient = new QueryClient();
   await prefetchUserProfile({
-    user_id: user.id,
+    user_uid: user.id,
     queryClient,
     supabaseClient,
   });

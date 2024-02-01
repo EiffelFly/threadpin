@@ -6,7 +6,7 @@ import { UserInfoLoading } from "./user-info-loading";
 export function UserInfo() {
   const me = useUserMe({ enabled: true });
   const profile = useUserProfile({
-    user_id: me.isSuccess ? me.data.user.id : null,
+    user_uid: me.isSuccess ? me.data.user.id : null,
     enabled: me.isSuccess,
   });
 

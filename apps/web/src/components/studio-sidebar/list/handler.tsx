@@ -25,7 +25,7 @@ export function ListHandler({
   const me = useUserMe({ enabled: true });
   const profile = useUserProfile({
     enabled: me.isSuccess,
-    user_id: me.isSuccess ? me.data.user.id : null,
+    user_uid: me.isSuccess ? me.data.user.id : null,
   });
 
   const deleteList = useDeleteList();
@@ -36,7 +36,7 @@ export function ListHandler({
     }
 
     try {
-      await deleteList.mutateAsync({ list_uid, user_id: me.data.user.id });
+      await deleteList.mutateAsync({ list_uid, user_uid: me.data.user.id });
     } catch (error) {
       toastError("Failed to delete list");
     }
@@ -59,7 +59,7 @@ export function ListHandler({
 
     try {
       await updateUserProfile.mutateAsync({
-        user_id: me.data.user.id,
+        user_uid: me.data.user.id,
         payload: {
           lists_order_record: listsInOrder,
         },

@@ -51,7 +51,7 @@ export function CreateListDiaglog() {
 
   const me = useUserMe({ enabled: true });
   const profile = useUserProfile({
-    user_id: me.isSuccess ? me.data.user.id : null,
+    user_uid: me.isSuccess ? me.data.user.id : null,
     enabled: me.isSuccess,
   });
   const createList = useCreateList();
@@ -170,7 +170,7 @@ export function CreateListDiaglog() {
     try {
       await createList.mutateAsync({ payload, userID: me.data.user.id });
       await updateUserProfile.mutateAsync({
-        user_id: me.data.user.id,
+        user_uid: me.data.user.id,
         payload: updateUserProfilePayload,
       });
       setOpen(false);

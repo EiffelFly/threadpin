@@ -11,7 +11,7 @@ export async function createListItemMutation(
 ) {
   return await client.from("list_items").insert(payload).select(`
     uid,
-    user_id,
+    user_uid,
     items (*)
   `);
 }

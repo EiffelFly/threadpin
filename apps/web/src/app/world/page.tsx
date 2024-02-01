@@ -25,7 +25,7 @@ export default async function WorldPage() {
   const queryClient = new QueryClient();
 
   await prefetchUserStickers({
-    user_id: user.id,
+    user_uid: user.id,
     queryClient,
     supabaseClient,
   });

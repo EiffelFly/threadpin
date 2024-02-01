@@ -10,17 +10,23 @@ export function useDeleteSticker() {
   const queryClient = useQueryClient();
   const client = useSupabaseBrowser();
   return useMutation({
-    mutationFn: async ({ uid, user_id }: { uid: string; user_id: string }) => {
+    mutationFn: async ({
+      uid,
+      user_uid,
+    }: {
+      uid: string;
+      user_uid: string;
+    }) => {
       const { error } = await deleteStickerMutation({ client, uid });
 
       if (error) {
         throw error;
       }
 
-      return { uid, user_id };
+      return { uid, user_uid };
     },
-    onSuccess: ({ uid, user_id }) => {
-      const queryKey = getUseUserStickersQueryKey(user_id);
+    onSuccess: ({ uid, user_uid }) => {
+      const queryKey = getUseUserStickersQueryKey(user_uid);
       queryClient.setQueryData<
         Database["public"]["Tables"]["stickers"]["Row"][]
       >(queryKey, (old) => {

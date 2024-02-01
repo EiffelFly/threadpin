@@ -31,7 +31,7 @@ export async function SidebarLists() {
   await prefetchUserProfile({
     queryClient,
     supabaseClient,
-    user_id: user.id,
+    user_uid: user.id,
   });
 
   return (

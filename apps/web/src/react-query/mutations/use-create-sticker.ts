@@ -13,10 +13,10 @@ export function useCreateSticker() {
   return useMutation({
     mutationFn: async ({
       payload,
-      user_id,
+      user_uid,
     }: {
       payload: CreateStickerPayload;
-      user_id: string;
+      user_uid: string;
     }) => {
       const { data, error } = await createStickerMutation(client, payload);
 
@@ -24,10 +24,10 @@ export function useCreateSticker() {
         return Promise.reject(error);
       }
 
-      return { data: data[0], user_id };
+      return { data: data[0], user_uid };
     },
-    onSuccess: ({ data, user_id }) => {
-      const queryKey = getUseUserStickersQueryKey(user_id);
+    onSuccess: ({ data, user_uid }) => {
+      const queryKey = getUseUserStickersQueryKey(user_uid);
       queryClient.setQueryData<
         Database["public"]["Tables"]["stickers"]["Row"][]
       >(queryKey, (old) => {

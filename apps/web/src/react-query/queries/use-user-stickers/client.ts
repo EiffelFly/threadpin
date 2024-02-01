@@ -6,19 +6,19 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchUserStickers, getUseUserStickersQueryKey } from "./server";
 
 export function useUserStickers({
-  user_id,
+  user_uid,
   enabled,
 }: {
-  user_id: Nullable<string>;
+  user_uid: Nullable<string>;
   enabled: boolean;
 }) {
   const supabaseClient = useSupabaseBrowser();
-  const queryKey = getUseUserStickersQueryKey(user_id);
+  const queryKey = getUseUserStickersQueryKey(user_uid);
   return useQuery({
     queryKey,
-    enabled: enabled && !!user_id,
+    enabled: enabled && !!user_uid,
     queryFn: async () => {
-      return await fetchUserStickers({ supabaseClient, user_id });
+      return await fetchUserStickers({ supabaseClient, user_uid });
     },
   });
 }

@@ -13,9 +13,9 @@ export async function getUserListQuery(
   id,
   uid,
   updated_at,
-  user_id,
+  user_uid,
   visibility,
-  items (id, name, uid, title, description, url, og_image, created_at, updated_at, user_id)
+  items (id, name, uid, title, description, url, og_image, created_at, updated_at, user_uid)
 `
     )
     .eq("uid", listID);

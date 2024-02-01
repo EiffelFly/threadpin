@@ -10,16 +10,16 @@ export type UpdateUserProfilePayload = Partial<
 
 export async function updateUserProfileMutation({
   client,
-  user_id,
+  user_uid,
   payload,
 }: {
   client: TypedSupabaseClient;
-  user_id: string;
+  user_uid: string;
   payload: UpdateUserProfilePayload;
 }) {
   return await client
     .from("profiles")
     .update(payload)
-    .eq("user_id", user_id)
+    .eq("user_uid", user_uid)
     .select();
 }

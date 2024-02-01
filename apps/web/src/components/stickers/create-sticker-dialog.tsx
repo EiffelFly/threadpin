@@ -89,7 +89,7 @@ export function CreateStickerDiaglog() {
 
     try {
       await createSticker.mutateAsync({
-        user_id: me.data.user.id,
+        user_uid: me.data.user.id,
         payload: {
           uid: stickerUID,
           id: formValue.id,

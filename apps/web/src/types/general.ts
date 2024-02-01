@@ -18,7 +18,7 @@ export type SelectOption = {
 
 export type ClientUserListItem = Pick<
   Database["public"]["Tables"]["list_items"]["Row"],
-  "uid" | "user_id"
+  "uid" | "user_uid"
 > & { items: Nullable<Database["public"]["Tables"]["items"]["Row"]> };
 
 export type NodeType = "sticker_node";

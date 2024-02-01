@@ -12,10 +12,10 @@ export function useDeleteList() {
   return useMutation({
     mutationFn: async ({
       list_uid,
-      user_id,
+      user_uid,
     }: {
       list_uid: string;
-      user_id: string;
+      user_uid: string;
     }) => {
       const { error } = await deleteListMutation({ client, list_uid });
 
@@ -23,10 +23,10 @@ export function useDeleteList() {
         throw error;
       }
 
-      return { list_uid, user_id };
+      return { list_uid, user_uid };
     },
-    onSuccess: ({ list_uid, user_id }) => {
-      const useUserListsQueryKey = getUseUserListsQueryKey(user_id);
+    onSuccess: ({ list_uid, user_uid }) => {
+      const useUserListsQueryKey = getUseUserListsQueryKey(user_uid);
       queryClient.setQueryData<Database["public"]["Tables"]["lists"]["Row"][]>(
         useUserListsQueryKey,
         (old) => {

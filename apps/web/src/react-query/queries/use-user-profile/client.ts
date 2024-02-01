@@ -6,19 +6,19 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchUserProfile, getUseUserProfileQueryKey } from "./server";
 
 export function useUserProfile({
-  user_id,
+  user_uid,
   enabled,
 }: {
-  user_id: Nullable<string>;
+  user_uid: Nullable<string>;
   enabled: boolean;
 }) {
   const supabaseClient = useSupabaseBrowser();
-  const queryKey = getUseUserProfileQueryKey(user_id);
+  const queryKey = getUseUserProfileQueryKey(user_uid);
   return useQuery({
     queryKey,
-    enabled: enabled && !!user_id,
+    enabled: enabled && !!user_uid,
     queryFn: async () => {
-      return await fetchUserProfile({ supabaseClient, user_id });
+      return await fetchUserProfile({ supabaseClient, user_uid });
     },
   });
 }

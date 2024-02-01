@@ -36,7 +36,7 @@ export function Sticker({
     }
 
     try {
-      await deleteSticker.mutateAsync({ user_id: me.data.user.id, uid });
+      await deleteSticker.mutateAsync({ user_uid: me.data.user.id, uid });
       toast.success("Sticker deleted");
     } catch (error) {
       toastError("Failed to delete sticker");

@@ -15,14 +15,14 @@ export function useUpdateUserProfile() {
   return useMutation({
     mutationFn: async ({
       payload,
-      user_id,
+      user_uid,
     }: {
       payload: UpdateUserProfilePayload;
-      user_id: string;
+      user_uid: string;
     }) => {
       const { data, error } = await updateUserProfileMutation({
         client,
-        user_id,
+        user_uid,
         payload,
       });
 
@@ -30,10 +30,10 @@ export function useUpdateUserProfile() {
         return Promise.reject(error);
       }
 
-      return { data: data[0], user_id };
+      return { data: data[0], user_uid };
     },
-    onSuccess: ({ data, user_id }) => {
-      const queryKey = getUseUserProfileQueryKey(user_id);
+    onSuccess: ({ data, user_uid }) => {
+      const queryKey = getUseUserProfileQueryKey(user_uid);
       queryClient.setQueryData<Database["public"]["Tables"]["profiles"]["Row"]>(
         queryKey,
         () => {

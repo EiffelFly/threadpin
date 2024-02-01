@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function Delete(request: NextRequest) {
+export async function DELETE(request: NextRequest) {
   const res = await request.json();
 
   if (!res.key) {
