@@ -1,4 +1,4 @@
-import { Container } from "@/components/container";
+import { StudioContainer } from "@/components/studio-container";
 import { CreateListDiaglog } from "@/components/studio-sidebar/create-list-dialog";
 import { Navigation } from "@/components/studio-sidebar/navigation";
 import {
@@ -19,7 +19,7 @@ export default function Layout(props: {
   content: React.ReactNode;
 }) {
   return (
-    <Container>
+    <StudioContainer>
       <ResizablePanelGroup className="rounded-[6px]" direction="horizontal">
         <ResizablePanel defaultSize={40} maxSize={40} minSize={25}>
           <div className="bg-background flex h-full flex-col">
@@ -38,6 +38,6 @@ export default function Layout(props: {
         <ResizableHandle />
         <ResizablePanel defaultSize={60}>{props.children}</ResizablePanel>
       </ResizablePanelGroup>
-    </Container>
+    </StudioContainer>
   );
 }

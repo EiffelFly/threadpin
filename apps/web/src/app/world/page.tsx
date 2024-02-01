@@ -1,3 +1,4 @@
+import { OnPasteContainer } from "@/components/on-paste-container";
 import { World } from "@/components/world/world";
 import { prefetchUserStickers } from "@/react-query/queries/use-user-stickers";
 import { Database } from "@/types/database.types";
@@ -31,9 +32,11 @@ export default async function WorldPage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="h-full w-full">
-        <World />
-      </div>
+      <OnPasteContainer>
+        <div className="h-full w-full">
+          <World />
+        </div>
+      </OnPasteContainer>
     </HydrationBoundary>
   );
 }
