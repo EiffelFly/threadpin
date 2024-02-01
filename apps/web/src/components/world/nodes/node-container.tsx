@@ -48,7 +48,7 @@ export function NodeContainer({
       >
         <div className="bg-muted-foreground h-2 w-2" />
       </div>
-      <NodeResizer keepAspectRatio isVisible={selectedNodeID === id} />
+      <NodeResizer keepAspectRatio />
       {selectedNodeID === id ? <React.Fragment></React.Fragment> : null}
       <div
         className="h-full w-full"

@@ -3,7 +3,6 @@
 import * as React from "react";
 import * as z from "zod";
 import { Drawer, DrawerContent } from "../ui/drawer";
-import { Store } from "@/store/type";
 import { usePinStore } from "@/store/usePinStore";
 import { useShallow } from "zustand/react/shallow";
 import axios from "axios";
@@ -22,8 +21,9 @@ import { CreateItemPayload, CreateListItemPayload } from "@/supabase-query";
 import { toast } from "sonner";
 import { useCreateListItem } from "@/react-query/mutations/use-create-list-item";
 import { LoadingSpin } from "../ui/loading-spin";
+import { PinStore } from "@/store/type";
 
-const selector = (store: Store) => ({
+const selector = (store: PinStore) => ({
   processingURLDrawerState: store.processingURLDrawerState,
   updateProcessingURLDrawerState: store.updateProcessingURLDrawerState,
 });
